@@ -41,7 +41,7 @@
         </script>
     {% endblock %}
 
-    {% extra_js %}
+    {% block extra_js %}
     {% endblock %}
 
     <title>Music Bingo {% block extra_title %}{% endblock %}</title>
@@ -54,7 +54,7 @@
     <div class="message-container"></div>
     {% endif %}
 
-    {% block page_header% }
+    {% block page_header %}
     {% endblock %}
 
     {% block content %}
@@ -62,7 +62,7 @@
 
     {% block postloadjs %}
     {% endblock %}
-    
+
 
 </body>
 
