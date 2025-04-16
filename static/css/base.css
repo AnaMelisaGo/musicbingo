@@ -1,0 +1,29 @@
+/* ---------------------- ROOT ---------------------- */
+
+/* ---------------------- GLOBAL ---------------------- */
+* {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-family: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ---------------------- NAVBAR ---------------------- */
+.user-icon {
+    height:100px;
+    width: 100px;
+    font-size: 50px;
+}
