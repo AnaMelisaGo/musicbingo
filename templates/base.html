@@ -50,6 +50,32 @@
 
 <body>
     {% block page_header %}
+    <header>
+        <nav class="navbar fixed-top">
+            <div class="row container-fluid">
+                <!-- Navbar -->
+                {% if playlists %}
+                <div class="col-md-1 col-sm-1 pe-0 me-0 ps-4">
+                    <a href="{% url 'home' %}" title="Go back">
+                        <i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
+                    </a>
+                </div>
+                {% else %}
+                <div class="col-md-1 col-sm-1 pe-0 me-0 ps-4">
+                    {% include 'home/includes/main-nav.html' %}
+                </div>
+                {% endif %}
+                <!-- Logo -->
+                <div class="col-lg-11 col-sm-10 py-2">
+                    <h1>
+                        <span class="logo-music">Music</span>
+                        <span class="logo-bingo">BING</span>
+                        <i class="fa-solid fa-bowling-ball"></i>
+                    </h1>
+                </div>
+            </div>
+        </nav>
+    </header>
     {% endblock %}
 
     {% if messages %}
@@ -67,4 +93,4 @@
     {% endblock %}
 </body>
 
-</html>"
+</html>
