@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extra_title %}- Add Playlist{% endblock %}
 
 {% block content %}
 <div class="container mt-5 py-5 mx-0 bg-danger-subtle">
-    <h1>Add Playlist</h1>
+    <h2>Add Playlist</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-4">
+                {{ playlist_form | crispy }}
+            </div>
+        </div>
+
+        <br>
+        {% for form in formset %}
+        <div class="row">
+            <div class="col-4">
+                {{ form | crispy }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
 </div>
 {% endblock %}

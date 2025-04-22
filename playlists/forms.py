@@ -1,5 +1,7 @@
 from django import forms
 from .models import Playlist, Song
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit
 
 class AddPlaylistForm(forms.ModelForm):
     """ To add new playlist """
@@ -14,8 +16,20 @@ class SongUploadForm(forms.ModelForm):
         model = Song
         fields = ['number', 'title', 'artist', 'video_file']
 
-    """ def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('number', css_class='col-md-2'),
+                Column('title', css_class='col-md-4'),
+                Column('artist', css_class='col-md-4'),
+                Column('video_file', css_class='col-md-2'),
+            )
+        )
+
+    """ 
 
         for i in range(1, 76):
             field_name: f'number_{i}'
