@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'allauth.account',
     # Optional -- requires install using `django-allauth[socialaccount]`.
     'allauth.socialaccount',
+    # Music Bingo apps
     'home',
+    'playlists',
 ]
 
 MIDDLEWARE = [
