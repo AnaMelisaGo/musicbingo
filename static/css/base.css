@@ -1,4 +1,11 @@
 /* ---------------------- ROOT ---------------------- */
+:root {
+    --bingo-success: #8ef6e4;
+    --bingo-primary: #9896f1;
+    --bingo-violet: #d59bf6;
+    --bingo-danger: #edb1f1;
+    --bingo-dark-success: #6acaba;
+}
 
 /* ---------------------- GLOBAL ---------------------- */
 * {
@@ -22,13 +29,7 @@ a {
     text-decoration: none;
 }
 
-
-/* ---------------------- NAVBAR ---------------------- */
-.user-icon {
-    height:100px;
-    width: 100px;
-    font-size: 50px;
-}
+/* ---------------------- LOGO ---------------------- */
 
 .logo-music {
     font-family: "Playwrite MX Guides", cursive;
@@ -42,7 +43,48 @@ a {
     font-style: normal;
 }
 
-.logo-ball {
-    height: 50px;
-    width: 50px;
+
+/* ---------------------- NAVBAR ---------------------- */
+.user-icon {
+    height:100px;
+    width: 100px;
+    font-size: 50px;
 }
+
+.custom-list .list-group-item {
+    background-color: #f9d7da;
+    border: none;
+}
+
+.custom-list .list-group-item:hover {
+    background-color: var(--bingo-violet);
+}
+
+.bg-bingo-primary {
+    background-color: var(--bingo-primary);
+}
+
+.dropdown {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: absolute !important;
+    inset: auto auto auto 0; /* reset positioning */
+    top: 100%;
+    right: 0;
+    z-index: 1050; /* above other elements */
+    display: none;
+  }
+
+  .dropdown.show .dropdown-menu {
+    display: block;
+  }
+
+  .play-active {
+    background-color: var(--bingo-success);
+  }
+
+  .play-active:hover {
+    background-color: var(--bingo-dark-success);
+  }
