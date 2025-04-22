@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Playlist(models.Model):
@@ -23,7 +24,12 @@ class Playlist(models.Model):
 
 class Song(models.Model):
     """ Model for songs uploaded into the playlist """
-    number = models.PositiveIntegerField()
+    number = models.IntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(75)
+        ]
+    )
     title = models.CharField(max_length=255)
     artist = models.CharField(max_length=200, null=True, blank=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
