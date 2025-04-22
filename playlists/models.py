@@ -1,3 +1,41 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class Playlist(models.Model):
+    """ Model for Playlist """
+    name = models.CharField(max_length=200, unique=True)
+    game_master = models.ForeignKey(User, on_delete=models.CASCADE, related_name='playlists')
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """ Display the playlist in ascending order according to the date created """
+        ordering = ['created_on']
+
+    def song_count(self):
+        """ Function to count the number of songs in the playlist """
+        return self.songs.count()
+
+    def __str__(self):
+        """ Function to return the name of the playlist and the Game Master """
+        return f"{self.name} ({self.game_master.username})"
+
+
+class Song(models.Model):
+    """ Model for songs uploaded into the playlist """
+    number = models.PositiveIntegerField()
+    title = models.CharField(max_length=255)
+    artist = models.CharField(max_length=200, null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='song')
+    video_file = models.FileField(upload_to='video/')
+
+    def save(save, *args, **kwargs):
+        """ To slugify title name """
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        """ Function to return number and the title of the song """
+        return f"{self.number} - {self.title}"
