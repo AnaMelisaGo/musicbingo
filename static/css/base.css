@@ -92,3 +92,20 @@ a {
   .play-active:hover {
     background-color: var(--bingo-dark-success);
   }
+
+/* ---------------------- PLAYLIST TEMPLATES ---------------------- */
+.top-space {
+    margin-top: 6rem;
+}
+
+.main-container {
+    height: calc(90vh - 60px);
+    overflow: hidden;
+    width: 100%;
+}
+
+.scrollable {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

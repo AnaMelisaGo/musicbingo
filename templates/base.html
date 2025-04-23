@@ -51,7 +51,7 @@
 <body>
     {% block page_header %}
     <header>
-        <nav class="navbar fixed-top">
+        <nav class="navbar fixed-top z-3">
             <div class="row container-fluid">
                 <!-- Navbar -->
                 {% if playlists %}
@@ -67,11 +67,13 @@
                 {% endif %}
                 <!-- Logo -->
                 <div class="col-lg-11 col-sm-10 py-2">
-                    <h1>
-                        <span class="logo-music">Music</span>
-                        <span class="logo-bingo">BING</span>
-                        <i class="fa-solid fa-bowling-ball"></i>
-                    </h1>
+                    <a class="text-white" href="{% url 'home' %}">
+                        <h1>
+                            <span class="logo-music">Music</span>
+                            <span class="logo-bingo">BING</span>
+                            <i class="fa-solid fa-bowling-ball"></i>
+                        </h1>
+                    </a>
                 </div>
             </div>
         </nav>
