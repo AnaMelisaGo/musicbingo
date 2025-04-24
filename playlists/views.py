@@ -6,9 +6,9 @@ from .models import Song
 
 def playlists(request):
     """ To view playlist """
-    playlists = True
+    
     return render(request, 'playlists/edit_playlist.html', {
-        'playlists': playlists,
+        'playlists': True,
     }
     )
 
@@ -35,5 +35,6 @@ def add_playlist(request):
     context = {
         'playlist_form': playlist_form,
         'formset': formset,
+        'playlists': True,
     }
     return render(request, template, context)

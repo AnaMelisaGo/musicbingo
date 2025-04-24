@@ -29,6 +29,9 @@ a {
     text-decoration: none;
 }
 
+/* ---------------------- TEXT COLOR ---------------------- */
+
+
 /* ---------------------- LOGO ---------------------- */
 
 .logo-music {
@@ -56,8 +59,16 @@ a {
     border: none;
 }
 
-.custom-list .list-group-item:hover {
+.custom-list .list-group-item:not(:last-child):hover {
     background-color: var(--bingo-violet);
+}
+
+.fa-circle-plus:hover {
+    color: #76b39d;
+}
+
+button.badge.bg-bingo-primary.rounded-pill:hover {
+    background-color: #76b39d;
 }
 
 .bg-bingo-primary {
@@ -68,7 +79,7 @@ a {
     position: relative;
   }
 
-  .dropdown-menu {
+.dropdown-menu {
     position: absolute !important;
     inset: auto auto auto 0; /* reset positioning */
     top: 100%;
@@ -76,20 +87,20 @@ a {
     display: none;
   }
 
-  .dropdown-menu[data-bs-popper] {
+.dropdown-menu[data-bs-popper] {
     left: 50%;
   }
 
-  .dropdown.show .dropdown-menu {
+.dropdown.show .dropdown-menu {
     display: block;
 
   }
 
-  .play-active {
+.play-active {
     background-color: var(--bingo-success);
   }
 
-  .play-active:hover {
+.play-active:hover {
     background-color: var(--bingo-dark-success);
   }
 
@@ -99,9 +110,13 @@ a {
 }
 
 .main-container {
+    width: 100%;
+    min-height: 40vh;
+}
+
+.form-container {
     height: calc(90vh - 60px);
     overflow: hidden;
-    width: 100%;
 }
 
 .scrollable {
@@ -112,4 +127,9 @@ a {
 
 .table {
     --bs-table-bg: var(--bingo-danger)
+}
+
+.add-playlist {
+    color: #702283;
+    font-size: 30px;
 }

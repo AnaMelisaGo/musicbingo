@@ -49,7 +49,6 @@
 </head>
 
 <body>
-    {% block page_header %}
     <header>
         <nav class="navbar fixed-top z-3">
             <div class="row container-fluid">
@@ -78,14 +77,18 @@
             </div>
         </nav>
     </header>
+
+    {% block page_header %}
     {% endblock %}
 
     {% if messages %}
     <div class="message-container"></div>
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    <div class="main-container">
+        {% block content %}
+        {% endblock %}
+    </div>
 
     {% block extra_js %}
     <script src="{% static 'js/script.js' %}"></script>
