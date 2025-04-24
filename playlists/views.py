@@ -3,6 +3,7 @@ from django.forms import modelformset_factory
 from .forms import AddPlaylistForm, SongUploadForm
 from .models import Song
 
+
 def playlists(request):
     """ To view playlist """
     playlists = True
@@ -22,6 +23,7 @@ def add_playlist(request):
         if playlist_form.is_valid() and formset.is_valid():
             playlist_form.save()
             formset.save()
+            # add a message success
             return redirect('home')
         else:
             print('error')

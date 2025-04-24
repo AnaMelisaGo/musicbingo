@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="container-fluid mx-0 pb-5 main-container">
-        <h2>Add Playlist</h2>
+        <h2>Add new playlist</h2>
         <form class="scrollable" method="post">
             {% csrf_token %}
             {{ formset.management_form }}
@@ -19,18 +19,35 @@
                 <div class="col-4">
                     {{ playlist_form | crispy }}
                 </div>
+                <div class="col-4 pt-4">
+                    <button class="btn btn-info" type="submit">Save Playlist</button>
+                </div>
             </div>
     
             <br>
-            {% for form in formset %}
-            <div class="row">
-                <div class="col-4">
-                    {{ form | crispy }}
-                </div>
+            <h3>Upload Songs</h3>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        {% for field in formset.forms.0.visible_fields %}
+                        <th>{{ field.label }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form in formset %}
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-grid col-6 mx-auto">
+                <button class="btn btn-info btn-lg" type="submit">Save New Playlist</button>
             </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-primary">Save</button>
-            <p>something here</p>
+
         </form>
 </div>
 {% endblock %}

@@ -109,3 +109,7 @@ a {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.table {
+    --bs-table-bg: var(--bingo-danger)
+}
