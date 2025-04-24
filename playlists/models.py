@@ -31,10 +31,10 @@ class Song(models.Model):
         ]
     )
     title = models.CharField(max_length=255)
-    artist = models.CharField(max_length=200, null=True, blank=True)
+    artist = models.CharField(max_length=200, blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='song')
-    video_file = models.FileField(upload_to='video/')
+    video_file = models.FileField(upload_to='video/', blank=True, null=True)
 
     def save(save, *args, **kwargs):
         """ To slugify title name """
