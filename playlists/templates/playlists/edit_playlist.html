@@ -6,5 +6,33 @@
 {% block content %}
 <div class="container mt-5 py-5 mx-0">
     <h2>Edit playlist</h2>
+    {% for playlist in playlists %}
+    <p>
+        {{ playlist.name }}
+        {{ playlist.game_master }}
+        {{ playlist.id }}
+
+        {{ playlist }}
+
+    </p>
+    
+{% endfor %}
+{% if playlists|length == 0 %}
+	<p class="text-center text-secondary">No Playlist added yet {{ playlists }}</p>
+	<a class="add-playlist text-center" href="{% url 'add_playlist' %}">
+		<i class="fa-solid fa-circle-plus hvr-pulse"></i>
+	</a>
+{% endif %}
+{{ playlists }}
+<div class="text-danger">
+    {{ playlists|length }}
+    {% if playlists|length == 1 %}
+    <p class="text-center text-secondary">No Playlist added yet</p>
+	<a class="add-playlist text-center" href="{% url 'add_playlist' %}">
+		<i class="fa-solid fa-circle-plus hvr-pulse"></i>
+	</a>
+    {% endif %}
+    
+</div>
 </div>
 {% endblock %}

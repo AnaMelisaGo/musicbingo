@@ -1,15 +1,18 @@
+<!-- TOGGLE BUTTON -->
 <button class="navbar-toggler hvr-bounce-in" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 	aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-	<!-- <span class="navbar-toggler-icon text-white"></span> -->
 	<span><i class="fa-solid fa-bars text-light"></i></span>
 </button>
+<!-- NAVBAR -->
 <div class="offcanvas offcanvas-start bg-danger-subtle" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 	<div class="offcanvas-header">
+		<!-- NAVBAR HEADER -->
 		<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Music BINGO Account</h5>
 		<button type="button" class="btn-close hvr-push" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<hr>
 	<div class="offcanvas-body">
+		<!-- PROFILE -->
 		<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 			<li class="nav-item text-center d-flex justify-content-center">
 				<div class="bg-body-secondary rounded-circle user-icon p-3 d-flex justify-content-center align-items-center">
@@ -30,55 +33,19 @@
 						</a>
 					</li>
 				</ul>
-			</li>	
+			</li>
+			<!-- PLAYLIST -->	
 			<li class="nav-item">
 				<h5>Playlists</h5>
 				<ul class="list-group custom-list dropdown">
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-						Playlist 1
-						<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						  . . .
-						</button>
-						<ul class="dropdown-menu playlist-menu">
-						  <li><a class="dropdown-item play-active" href="#">Play</a></li>
-						  <li><a class="dropdown-item" href="{% url 'playlist' %}">Edit</a></li>
-						  <li><a class="dropdown-item" href="#">Delete</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-						Playlist 2
-						<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						  . . .
-						</button>
-						<ul class="dropdown-menu">
-						  <li><a class="dropdown-item" href="#">Action</a></li>
-						  <li><a class="dropdown-item" href="#">Another action</a></li>
-						  <li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item d-flex justify-content-between align-items-center">
-						Playlist 3
-						<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						  . . .
-						</button>
-						<ul class="dropdown-menu">
-						  <li><a class="dropdown-item" href="#">Action</a></li>
-						  <li><a class="dropdown-item" href="#">Another action</a></li>
-						  <li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul>
-					</li>
-					<li class="list-group-item text-center">
-						<a class="add-playlist" href="{% url 'add_playlist' %}">
-							<i class="fa-solid fa-circle-plus hvr-pulse"></i>
-						</a>
-					</li>
+					{% include 'playlists/includes/all_playlists.html' %}
 				</ul>
 			</li>
+			<!-- GAME HISTORY -->
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					Game History
 				</a>
-				<!-- <a class="nav-link" href="#">Game History</a> -->
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="#">Game 1</a></li>
 					<li><a class="dropdown-item" href="#">Game 2</a></li>

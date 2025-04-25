@@ -29,8 +29,10 @@ a {
     text-decoration: none;
 }
 
-/* ---------------------- TEXT COLOR ---------------------- */
-
+/* ---------------------- BACKGROUND COLOR ---------------------- */
+.bg-bingo-primary {
+    background-color: var(--bingo-primary);
+}
 
 /* ---------------------- LOGO ---------------------- */
 
@@ -59,25 +61,13 @@ a {
     border: none;
 }
 
-.custom-list .list-group-item:not(:last-child):hover {
-    background-color: var(--bingo-violet);
-}
-
-.fa-circle-plus:hover {
-    color: #76b39d;
-}
-
 button.badge.bg-bingo-primary.rounded-pill:hover {
     background-color: #76b39d;
 }
 
-.bg-bingo-primary {
-    background-color: var(--bingo-primary);
-}
-
 .dropdown {
     position: relative;
-  }
+}
 
 .dropdown-menu {
     position: absolute !important;
@@ -85,24 +75,24 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     top: 100%;
     z-index: 1050; /* above other elements */
     display: none;
-  }
+}
 
 .dropdown-menu[data-bs-popper] {
     left: 50%;
-  }
+}
 
 .dropdown.show .dropdown-menu {
     display: block;
 
-  }
+}
 
 .play-active {
     background-color: var(--bingo-success);
-  }
+}
 
 .play-active:hover {
     background-color: var(--bingo-dark-success);
-  }
+}
 
 /* ---------------------- PLAYLIST TEMPLATES ---------------------- */
 .top-space {
@@ -132,4 +122,12 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 .add-playlist {
     color: #702283;
     font-size: 30px;
+}
+
+.custom-list .list-group-item:hover {
+    background-color: var(--bingo-violet);
+}
+
+.fa-circle-plus:hover {
+    color: #76b39d;
 }

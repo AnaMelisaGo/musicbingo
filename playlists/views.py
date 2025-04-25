@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect
 from django.forms import modelformset_factory
 from .forms import AddPlaylistForm, SongUploadForm
-from .models import Song
+from .models import Playlist, Song
 
 
-def playlists(request):
+def all_playlists(request):
     """ To view playlist """
-    
-    return render(request, 'playlists/edit_playlist.html', {
-        'playlists': True,
+    playlists = Playlist.objects.all()
+    return render(request, 'base.html', {
+        'playlist_page': True,
+        'playlists': playlists,
     }
     )
 
@@ -35,6 +36,16 @@ def add_playlist(request):
     context = {
         'playlist_form': playlist_form,
         'formset': formset,
-        'playlists': True,
+        'playlist_page': True,
     }
     return render(request, template, context)
+
+
+def edit_playlist(request):
+    """ To view playlist """
+    playlists = Playlist.objects.all()
+    return render(request, 'playlists/edit_playlist.html', {
+        'playlist_page': True,
+        'playlists': playlists
+    }
+    )
