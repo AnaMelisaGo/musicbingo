@@ -8,6 +8,7 @@ class Playlist(models.Model):
     name = models.CharField(max_length=200, unique=True)
     game_master = models.ForeignKey(User, on_delete=models.CASCADE, related_name='playlists')
     created_on = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     class Meta:
         """ Display the playlist in ascending order according to the date created """
@@ -16,6 +17,12 @@ class Playlist(models.Model):
     def song_count(self):
         """ Function to count the number of songs in the playlist """
         return self.songs.count()
+
+    def save(self, *args, **kwargs):
+        """ Function to create slug to each playlist and pass them to the url for readability """
+        if not slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """ Function to return the name of the playlist and the Game Master """
