@@ -7,7 +7,7 @@ from .models import Playlist, Song
 
 def all_playlists(request):
     """ To view playlist """
-    playlists = Playlist.objects.all()
+    playlists = Playlist.objects.filter(game_master=request.user)
     return render(request, 'base.html', {
         'playlist_page': True,
         'playlists': playlists,
@@ -50,7 +50,7 @@ def add_playlist(request):
 
 def edit_playlist(request, playlist_id, slug):
     """ To edit playlist and upload songs"""
-    playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug)
+    playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug, game_master=request.user)
     SongUploadFormset = modelformset_factory(Song, form=SongUploadForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
@@ -60,7 +60,7 @@ def edit_playlist(request, playlist_id, slug):
         if playlist_form.is_valid() and formset.is_valid():
             playlist_form.save()
             formset.save()
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            return redirect('home')
     else:
         playlist_form = AddPlaylistForm(instance=playlist)
         formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))
@@ -72,3 +72,10 @@ def edit_playlist(request, playlist_id, slug):
         'formset': formset,
     }
     )
+    
+def delete_playlist(request, playlist_id, slug):
+    """ Delete playlist """
+    playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug, game_master=request.user)
+    playlist.delete()
+    messages.success(request, f'Successfully deleted!')
+    return redirect('home')

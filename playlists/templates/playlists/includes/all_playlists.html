@@ -7,7 +7,7 @@
 	<ul class="dropdown-menu playlist-menu">
 		<li><a class="dropdown-item play-active" href="#">Play</a></li>
 		<li><a class="dropdown-item" href="{% url 'edit_playlist' playlist.id playlist.slug %}">Edit</a></li>
-		<li><a class="dropdown-item" href="#">Delete</a></li>
+		<li><a class="dropdown-item" href="{% url 'edit_playlist' playlist.id playlist.slug %}?open_modal=1" id="delete_button">Delete</a></li>
 	</ul>
 </li>
 {% endfor %}

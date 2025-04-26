@@ -14,55 +14,77 @@
 
 {% block content %}
 <div class="container-fluid mx-0 pb-5 form-container">
-        <h2>Edit playlist</h2>
+    <h2>Playlist</h2>
 
-        <!-- {% if playlist_form.errors %}
-        <pre>{{ playlist_form.errors }}</pre>
-        {% endif %} -->
-        <!-- TO DELETE -->
+    <!-- {% if playlist_form.errors %}
+    <pre>{{ playlist_form.errors }}</pre>
+    {% endif %} -->
+    <!-- TO DELETE -->
 
-        {% if formset.errors %}
-        <pre>{{ formset.errors }}</pre>
-        {% endif %}
-        <!--  -->
+    {% if formset.errors %}
+    <pre>{{ formset.errors }}</pre>
+    {% endif %}
+    <!--  -->
 
-        <form class="scrollable" method="post" action="{% url 'edit_playlist' playlist.id playlist.slug %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ formset.management_form }}
-            <div class="row">
-                <div class="col-4">
-                    {{ playlist_form | crispy }}
-                </div>
-                <div class="col-4 pt-4">
-                    <button class="btn btn-info hvr-grow-shadow" type="submit">Update Playlist</button>
-                </div>
+    <form class="scrollable" method="post" action="{% url 'edit_playlist' playlist.id playlist.slug %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div class="row">
+            <div class="col-4">
+                {{ playlist_form | crispy }}
             </div>
-    
-            <br>
-            <h3>Upload Songs</h3>
-            <table class="table table-bordered table-sm">
-                <thead>
+            <div class="col-4 pt-4">
+                <button class="btn btn-info hvr-grow-shadow" type="submit">Update Playlist</button>
+            </div>
+        </div>
+
+        <br>
+        <h3>Upload Songs</h3>
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    {% for field in formset.forms.0.visible_fields %}
+                    <th>{{ field.label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
                     <tr>
-                        {% for field in formset.forms.0.visible_fields %}
-                        <th>{{ field.label }}</th>
+                        {{ form.id }}
+                        {% for field in form.visible_fields %}
+                            <td>{{ field }}</td>
                         {% endfor %}
                     </tr>
-                </thead>
-                <tbody>
-                    {% for form in formset %}
-                        <tr>
-                            {{ form.id }}
-                            {% for field in form.visible_fields %}
-                                <td>{{ field }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="d-grid col-6 mx-auto">
-                <button class="btn btn-info btn-lg hvr-grow-shadow" type="submit">Update Playlist</button>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-grid col-6 mx-auto">
+            <button class="btn btn-info btn-lg hvr-grow-shadow" type="submit">Update Playlist</button>
+        </div>
+    </form>
+    <button type="button" id="deleteModalButton" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        Launch static backdrop modal
+    </button>
+    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-dark" id="deleteModalLabel"><strong>Delete</strong></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-        </form>
+            <div class="modal-body text-dark">
+                Are you sure you want to delete this playlist?
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="{% url 'delete_playlist' playlist.id playlist.slug %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, delete playlist</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>  
 </div>
 {% endblock %}
