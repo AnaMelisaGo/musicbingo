@@ -1,39 +1,25 @@
+{% for playlist in playlists %}
+<li class="list-group-item d-flex justify-content-between align-items-center">
+	{{ playlist.name }}
+	<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		. . .
+	</button>
+	<ul class="dropdown-menu playlist-menu">
+		<li><a class="dropdown-item play-active" href="#">Play</a></li>
+		<li><a class="dropdown-item" href="{% url 'edit_playlist' %}">Edit</a></li>
+		<li><a class="dropdown-item" href="#">Delete</a></li>
+	</ul>
+</li>
+{% endfor %}
 {% if playlists|length == 0 %}
 	<p class="text-center text-secondary">No Playlist added yet</p>
 	<a class="add-playlist text-center" href="{% url 'add_playlist' %}">
 		<i class="fa-solid fa-circle-plus hvr-pulse"></i>
 	</a>
-{% elif playlist|length == 5 %}
-<li class="list-group-item d-flex justify-content-between align-items-center">
-	{% for playlist in playlists %}
-		{{ playlist.name }}
-	{% endfor %}
-	<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-	. . .
-	</button>
-	<ul class="dropdown-menu playlist-menu">
-	<li><a class="dropdown-item play-active" href="#">Play</a></li>
-	<li><a class="dropdown-item" href="{% url 'edit_playlist' %}">Edit</a></li>
-	<li><a class="dropdown-item" href="#">Delete</a></li>
-	</ul>
-</li>
-<p class="text-center text-secondary"><small>You've reached the maximum limit. Please delete to create new playlist.</small></p>
+{% elif playlists|length == 5 %}
+<p class="text-center text-secondary py-4"><small>You've reached the maximum limit. Please delete to create new playlist.</small></p>
 {% else %}
-<li class="list-group-item d-flex justify-content-between align-items-center">
-	{% for playlist in playlists %}
-		{{ playlist.name }}
-	{% endfor %}
-	<button class="badge bg-bingo-primary rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-	. . .
-	</button>
-	<ul class="dropdown-menu playlist-menu">
-	<li><a class="dropdown-item play-active" href="#">Play</a></li>
-	<li><a class="dropdown-item" href="{% url 'edit_playlist' %}">Edit</a></li>
-	<li><a class="dropdown-item" href="#">Delete</a></li>
-	</ul>
-</li>
 <a class="add-playlist text-center" href="{% url 'add_playlist' %}">
 	<i class="fa-solid fa-circle-plus hvr-pulse"></i>
 </a>
 {% endif %}
-

@@ -12,7 +12,16 @@
 </div>
 <div class="container-fluid mx-0 pb-5 form-container">
         <h2>Add new playlist</h2>
-        <form class="scrollable" method="post">
+        <!-- DELETE LATER -->
+        {% if playlist_form.errors %}
+        <pre>{{ playlist_form.errors }}</pre>
+        {% endif %}
+    
+        {% if formset.errors %}
+            <pre>{{ formset.errors }}</pre>
+        {% endif %}
+         <!--  -->
+        <form class="scrollable" method="post" action="{% url 'add_playlist' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ formset.management_form }}
             <div class="row">

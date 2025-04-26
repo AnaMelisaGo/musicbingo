@@ -30,17 +30,10 @@ class Song(models.Model):
             MaxValueValidator(75)
         ]
     )
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True, null=True)
     artist = models.CharField(max_length=200, blank=True, null=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='song')
     video_file = models.FileField(upload_to='video/', blank=True, null=True)
-
-    def save(save, *args, **kwargs):
-        """ To slugify title name """
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         """ Function to return number and the title of the song """

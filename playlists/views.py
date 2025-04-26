@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.forms import modelformset_factory
 from .forms import AddPlaylistForm, SongUploadForm
 from .models import Playlist, Song
@@ -20,10 +20,15 @@ def add_playlist(request):
     
     if request.method == 'POST':
         playlist_form = AddPlaylistForm(request.POST)
-        formset = SongUploadFormSet(request.POST, queryset=Song.objects.none())
+        formset = SongUploadFormSet(request.POST, request.FILES, queryset=Song.objects.none())
         if playlist_form.is_valid() and formset.is_valid():
-            playlist_form.save()
-            formset.save()
+            playlist = playlist_form.save(commit=False)
+            playlist.game_master = request.user
+            playlist.save()
+            songs = formset.save(commit=False)
+            for song in songs:
+                song.playlist = playlist # Assign the playlist to each song first
+                song.save()
             # add a message success
             return redirect('home')
         else:
