@@ -20,7 +20,7 @@ html {
 
 body {
     font-family: 'Lato', sans-serif;
-    font-family: 20px;
+    font-size: 20px;
     background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
     color:aliceblue;
 }
@@ -34,7 +34,7 @@ a {
     background-color: var(--bingo-primary);
 }
 
-/* ---------------------- LOGO ---------------------- */
+/* ---------------------- HOME AND LOGO ---------------------- */
 
 .logo-music {
     font-family: "Playwrite MX Guides", cursive;
@@ -47,7 +47,6 @@ a {
     font-weight: 400;
     font-style: normal;
 }
-
 
 /* ---------------------- NAVBAR ---------------------- */
 .user-icon {

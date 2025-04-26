@@ -1,41 +1,56 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block extra_title %}- Edit Playlist{% endblock %}
 
-{% block content %}
-<div class="container mt-5 py-5 mx-0">
-    <h2>Edit playlist</h2>
-    {% for playlist in playlists %}
-    <p>
-        {{ playlist.name }}
-        {{ playlist.game_master }}
-        {{ playlist.id }}
-        {{ playlist }}
-        
-    </p>
-    <p class="text-info">
-        {{ playlist.game_master.id }}
-
-    </p>
-    
-{% endfor %}
-{% if playlists|length == 0 %}
-	<p class="text-center text-secondary">No Playlist added yet {{ playlists }}</p>
-	<a class="add-playlist text-center" href="{% url 'add_playlist' %}">
-		<i class="fa-solid fa-circle-plus hvr-pulse"></i>
-	</a>
-{% endif %}
-{{ playlists }}
-<div class="text-danger">
-    {{ playlists|length }}
-    {% if playlists|length == 1 %}
-    <p class="text-center text-secondary">No Playlist added yet</p>
-	<a class="add-playlist text-center" href="{% url 'add_playlist' %}">
-		<i class="fa-solid fa-circle-plus hvr-pulse"></i>
-	</a>
-    {% endif %}
-    
+{% block page_header %}
+<div class="container top-space">
+    <div class="row">
+        <div class="col"></div>
+    </div>
 </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mx-0 pb-5 form-container">
+        <h2>Add new playlist</h2>
+        <form class="scrollable" method="post" action="{% url 'add_playlist' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="row">
+                <div class="col-4">
+                    {{ playlist_form | crispy }}
+                </div>
+                <div class="col-4 pt-4">
+                    <button class="btn btn-info hvr-grow-shadow" type="submit">Update Playlist</button>
+                </div>
+            </div>
+    
+            <br>
+            <h3>Upload Songs</h3>
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        {% for field in formset.forms.0.visible_fields %}
+                        <th>{{ field.label }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form in formset %}
+                        <tr>
+                            {% for field in form.visible_fields %}
+                                <td>{{ field }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-grid col-6 mx-auto">
+                <button class="btn btn-info btn-lg hvr-grow-shadow" type="submit">Update Playlist</button>
+            </div>
+
+        </form>
 </div>
 {% endblock %}

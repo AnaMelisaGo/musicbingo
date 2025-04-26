@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from .forms import AddPlaylistForm, SongUploadForm
 from .models import Playlist, Song
@@ -46,9 +46,10 @@ def add_playlist(request):
     return render(request, template, context)
 
 
-def edit_playlist(request):
+def edit_playlist(request, playlist_id):
     """ To view playlist """
-    playlists = Playlist.objects.all()
+    # playlist = Playlist.get_object_or_404(Playlist, pk=playlist_id)
+
     return render(request, 'playlists/edit_playlist.html', {
         'playlist_page': True,
         'playlists': playlists
