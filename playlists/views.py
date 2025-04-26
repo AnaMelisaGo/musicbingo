@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
+from django.contrib import messages
 from .forms import AddPlaylistForm, SongUploadForm
 from .models import Playlist, Song
 
@@ -29,10 +30,11 @@ def add_playlist(request):
             for song in songs:
                 song.playlist = playlist # Assign the playlist to each song first
                 song.save()
-            # add a message success
-            return redirect('home')
+            
+            messages.success(request, f'Your new playlist ({ playlist.name }) is successfully saved!')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
         else:
-            print('error')
+            messages.error(request, f'Something is wrong, please check!')
     else:
         playlist_form = AddPlaylistForm()
         initial_data = [{'number':i} for i in range(1, 76)]
@@ -46,12 +48,27 @@ def add_playlist(request):
     return render(request, template, context)
 
 
-def edit_playlist(request, playlist_id):
-    """ To view playlist """
-    # playlist = Playlist.get_object_or_404(Playlist, pk=playlist_id)
+def edit_playlist(request, playlist_id, slug):
+    """ To edit playlist and upload songs"""
+    playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug)
+    SongUploadFormset = modelformset_factory(Song, form=SongUploadForm, extra=0, can_delete=False)
 
+    if request.method == 'POST':
+        playlist_form = AddPlaylistForm(request.POST, instance=playlist)
+        formset = SongUploadFormset(request.POST, request.FILES, queryset=Song.objects.filter(playlist=playlist))
+
+        if playlist_form.is_valid() and formset.is_valid():
+            playlist_form.save()
+            formset.save()
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+    else:
+        playlist_form = AddPlaylistForm(instance=playlist)
+        formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))
+    
     return render(request, 'playlists/edit_playlist.html', {
         'playlist_page': True,
-        'playlists': playlists
+        'playlist': playlist,
+        'playlist_form': playlist_form,
+        'formset': formset,
     }
     )

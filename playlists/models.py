@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.text import slugify
 
 
 class Playlist(models.Model):
@@ -20,8 +21,8 @@ class Playlist(models.Model):
 
     def save(self, *args, **kwargs):
         """ Function to create slug to each playlist and pass them to the url for readability """
-        if not slug:
-            self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
