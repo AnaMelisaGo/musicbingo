@@ -3,26 +3,83 @@
 
 {% block extra_title %}- Game Board{% endblock %}
 
-
-
 {% block content %}
 <div class="container-fluid">
-   
     <div class="row">
         <div class="col-9 top-space">
-            <div class="div w-100">
-                <p>I dont know what will happen. Hopefully will turn out well.</p>
+            <div class="row container-fluid ms-5">
+                <div class="col-2">
+                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Down</a>
+                </div>
+                <div class="col-2">
+                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Across</a>
+                </div>
+                <div class="col-2">
+                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Four Corners</a>
+                </div>
+                <div class="col-2">
+                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Full House</a>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <video class="object-fit-cover border rounded my-3 ms-2 bingo-video" controls>
+                        <source src="#" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-2 current-number">1</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 p-3">The title can be very long. long long long</div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 d-grid">
+                    <a href="#" class="btn btn-lg rounded-pill btn-success">Next</a>
+                </div>
+                <div class="col-2 text-center">
+                    <a href="#" class="btn btn-lg rounded-pill btn-secondary">Autoplay</a>
+                </div>
+                <div class="col-2 d-grid">
+                    <a href="#" class="btn btn-lg rounded-pill btn-danger">Stop</a>
+                </div>
             </div>
         </div>
-        <div class="col-3 mt-2">
+        <div class="col-3">
             <table class="table">
                 <tbody>
                 {% for song in songs %}
                     {% if forloop.counter0|divisibleby:5 %}
                         <tr>
                     {% endif %}
-                        <td class="pt-1 m-0">
-                            <button class="btn btn-secondary btn-sm rounded-circle">{{ song.number }}</button>
+                        <td class="p-1 m-0">
+                            <button class="btn btn-secondary btn rounded-circle">{{ song.number }}</button>
                         </td>
                     {% if forloop.counter|divisibleby:5 or forloop.last %}
                         </tr>

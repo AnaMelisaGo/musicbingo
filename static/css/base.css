@@ -157,3 +157,29 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     position: fixed;
     z-index: 9999999;
 }
+
+/* ---------------------- GAME ---------------------- */
+.prize-btn {
+    height: 30px;
+    width: 30px;
+    font-size: 25px;
+}
+
+.prize-btn:hover {
+    background-color: var(--bingo-dark-success);
+}
+
+.bingo-video{
+    height: 25rem;
+}
+
+.current-number {
+    border: var(--bingo-primary);
+    border-radius: 50%;
+    background-color: var(--bingo-primary);
+    color: white;
+    font-size: 100px;
+    height: 10rem;
+    width: 10rem;
+    text-align: center;
+}
