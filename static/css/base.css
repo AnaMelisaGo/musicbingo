@@ -5,6 +5,7 @@
     --bingo-violet: #d59bf6;
     --bingo-danger: #edb1f1;
     --bingo-dark-success: #6acaba;
+    --bingo-dark-violet: #702283;
 }
 
 /* ---------------------- GLOBAL ---------------------- */
@@ -23,6 +24,8 @@ body {
     font-size: 20px;
     background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
     color:aliceblue;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 a {
@@ -32,6 +35,14 @@ a {
 /* ---------------------- BACKGROUND COLOR ---------------------- */
 .bg-bingo-primary {
     background-color: var(--bingo-primary);
+}
+
+.bg-bingo-success {
+    background-color: var(--bingo-success);
+}
+
+.bg-bingo-violet {
+    background-color: var(--bingo-violet);
 }
 
 /* ---------------------- HOME AND LOGO ---------------------- */
@@ -82,7 +93,6 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .dropdown.show .dropdown-menu {
     display: block;
-
 }
 
 .play-active {
@@ -124,7 +134,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     background: var(--bingo-danger);
 }
 .add-playlist {
-    color: #702283;
+    color: var(--bingo-dark-violet);
     font-size: 30px;
 }
 
@@ -136,8 +146,14 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     color: #76b39d;
 }
 
-
 /* ---------------------- GAME TEMPLATES ---------------------- */
 .number-size {
     font-size: 15px;
+}
+
+/* ---------------------- TOAST ---------------------- */
+.message-container {
+    margin-top: 7rem;
+    position: fixed;
+    z-index: 9999999;
 }

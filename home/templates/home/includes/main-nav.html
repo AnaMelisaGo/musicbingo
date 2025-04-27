@@ -13,6 +13,7 @@
 	<hr>
 	<div class="offcanvas-body">
 		<!-- PROFILE -->
+		{% if user.is_authenticated %}
 		<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 			<li class="nav-item text-center d-flex justify-content-center">
 				<div class="bg-body-secondary rounded-circle user-icon p-3 d-flex justify-content-center align-items-center">
@@ -52,5 +53,13 @@
 				</ul>
 			</li>	
 		</ul>
+		{% else %}
+		<p class="text-center text-secondary fs-5 mt-5 pt-5">Please log in to your account.</p>
+		<!-- LOG IN BUTTON -->
+		<!-- LOG IN BUTTON -->
+		<!-- LOG IN BUTTON -->
+		<!-- LOG IN BUTTON -->
+		<!-- LOG IN BUTTON -->
+		{% endif %}
 	</div>
 </div>

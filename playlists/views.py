@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import modelformset_factory
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .forms import AddPlaylistForm, SongUploadForm
 from .models import Playlist, Song
 
 
+@login_required
 def all_playlists(request):
     """ To view playlist """
     playlists = Playlist.objects.filter(game_master=request.user)
@@ -15,10 +17,10 @@ def all_playlists(request):
     )
 
 
+@login_required
 def add_playlist(request):
     """ To add playlist and songs """
     SongUploadFormSet = modelformset_factory(Song, form=SongUploadForm, extra=75, can_delete=False)
-    
     if request.method == 'POST':
         playlist_form = AddPlaylistForm(request.POST)
         formset = SongUploadFormSet(request.POST, request.FILES, queryset=Song.objects.none())
@@ -30,9 +32,8 @@ def add_playlist(request):
             for song in songs:
                 song.playlist = playlist # Assign the playlist to each song first
                 song.save()
-            
-            messages.success(request, f'Your new playlist ({ playlist.name }) is successfully saved!')
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            messages.info(request, f'Your new playlist ({ playlist.name }) is successfully saved!')
+            return redirect('home')
         else:
             messages.error(request, f'Something is wrong, please check!')
     else:
@@ -48,6 +49,7 @@ def add_playlist(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_playlist(request, playlist_id, slug):
     """ To edit playlist and upload songs"""
     playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug, game_master=request.user)
@@ -60,27 +62,27 @@ def edit_playlist(request, playlist_id, slug):
         if playlist_form.is_valid() and formset.is_valid():
             playlist_form.save()
             formset.save()
+            messages.info(request, f'{playlist.name} is successfully updated!')
             return redirect('home')
+            #return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
         playlist_form = AddPlaylistForm(instance=playlist)
         formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))
-    
-    #songs = Song.objects.filter(playlist=playlist)
-
     return render(request, 'playlists/edit_playlist.html', {
-        #'songs': songs,
-        'playlist_page': True,
+        'edit_playlist_page': True,
         'playlist': playlist,
         'playlist_form': playlist_form,
         'formset': formset,
     }
     )
-    
+
+
+@login_required   
 def delete_playlist(request, playlist_id, slug):
     """ Delete playlist """
     playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug, game_master=request.user)
     playlist.delete()
-    messages.success(request, f'Successfully deleted!')
+    messages.info(request, f'Your playlist is deleted!')
     return redirect('home')
 
 """ 
