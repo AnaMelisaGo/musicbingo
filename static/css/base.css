@@ -115,9 +115,14 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .table {
-    --bs-table-bg: var(--bingo-danger)
+    --bs-table-bg: none;
+    --bs-table-color: transparent;
+    --bs-table-border-color: none;
 }
 
+.table-upload {
+    background: var(--bingo-danger);
+}
 .add-playlist {
     color: #702283;
     font-size: 30px;
@@ -129,4 +134,10 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .fa-circle-plus:hover {
     color: #76b39d;
+}
+
+
+/* ---------------------- GAME TEMPLATES ---------------------- */
+.number-size {
+    font-size: 15px;
 }

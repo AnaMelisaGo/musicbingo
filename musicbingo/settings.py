@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Music Bingo apps
     'home',
     'playlists',
+    'game',
 ]
 
 MIDDLEWARE = [

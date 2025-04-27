@@ -65,7 +65,10 @@ def edit_playlist(request, playlist_id, slug):
         playlist_form = AddPlaylistForm(instance=playlist)
         formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))
     
+    #songs = Song.objects.filter(playlist=playlist)
+
     return render(request, 'playlists/edit_playlist.html', {
+        #'songs': songs,
         'playlist_page': True,
         'playlist': playlist,
         'playlist_form': playlist_form,
@@ -79,3 +82,13 @@ def delete_playlist(request, playlist_id, slug):
     playlist.delete()
     messages.success(request, f'Successfully deleted!')
     return redirect('home')
+
+""" 
+def all_songs(request, playlist_id, slug):
+    playlist = get_object_or_404(Playlist, pk=playlsit_id, slug=slug, game_master=request.user)
+    songs = get_object_or_404(Song, playlist=playlist)
+    return render(request, 'playlist/edit_playlist', {
+        'songs': songs,
+    })
+
+ """

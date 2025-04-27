@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}- Game Board{% endblock %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+   
+    <div class="row">
+        <div class="col-9 top-space">
+            <div class="div w-100">
+                <p>I dont know what will happen. Hopefully will turn out well.</p>
+            </div>
+        </div>
+        <div class="col-3 mt-2">
+            <table class="table">
+                <tbody>
+                {% for song in songs %}
+                    {% if forloop.counter0|divisibleby:5 %}
+                        <tr>
+                    {% endif %}
+                        <td class="pt-1 m-0">
+                            <button class="btn btn-secondary btn-sm rounded-circle">{{ song.number }}</button>
+                        </td>
+                    {% if forloop.counter|divisibleby:5 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col">
+                <p>{{ song.number }}</p>
+
+            </div>
+        </div>
+
+    <!--  -->
+
+    <h2>game board</h2>
+
+    <!-- {% if playlist_form.errors %}
+    <pre>{{ playlist_form.errors }}</pre>
+    {% endif %} -->
+    <!-- TO DELETE -->
+
+
+    <pre class="text-danger">{{ songs }}</pre>
+    <pre class="text-danger">{{ songs|length }}</pre>
+ 
+</div>
+{% endblock %}
