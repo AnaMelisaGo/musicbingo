@@ -24,6 +24,19 @@
     {% if formset.errors %}
     <pre>{{ formset.errors }}</pre>
     {% endif %}
+    <!-- 
+    <pre class="text-danger">{{ songs }}</pre>
+    <pre class="text-danger">{{ songs|length }}</pre>
+    
+    {% for song in songs %}
+        <div class="row">
+            <div class="col">
+                <p>{{ song.number }}</p>
+
+            </div>
+        </div>
+    {% endfor %} -->
+
     <!--  -->
 
     <form class="scrollable" method="post" action="{% url 'edit_playlist' playlist.id playlist.slug %}" enctype="multipart/form-data">
@@ -40,7 +53,7 @@
 
         <br>
         <h3>Upload Songs</h3>
-        <table class="table table-bordered table-sm">
+        <table class="table table-upload table-sm">
             <thead>
                 <tr>
                     {% for field in formset.forms.0.visible_fields %}
