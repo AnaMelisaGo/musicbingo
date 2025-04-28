@@ -8,6 +8,7 @@ class Game(models.Model):
     played_on = models.DateTimeField(auto_now_add=True)
     game_master = models.ForeignKey(User, on_delete=models.CASCADE, related_name='game')
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    called_numbers = models.JSONField(default=list)
 
     class Meta:
         """ Display the playlist in ascending order according to the date created """
@@ -24,3 +25,7 @@ class Winner(models.Model):
     name = models.CharField(max_length=255)
     prize = models.CharField(max_length=255)
     winning_numbers = models.JSONField(default=list)
+
+    def __str__(self):
+        """ Return the name and prize of the winner """
+        return f'The winner for {self.prize} is {self.name}!'
