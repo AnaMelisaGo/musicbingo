@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-9 top-space">
-            <div class="row container-fluid ms-5">
+            <div class="row container-fluid ms-5 justify-content-around">
                 <div class="col-2">
                     <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Down</a>
                 </div>
@@ -29,50 +29,50 @@
                     </video>
                 </div>
                 <div class="col-3">
-                    <div class="row">
+                    <div class="row justify-content-center mt-3">
                         <div class="col-2 current-number">1</div>
                     </div>
                     <div class="row">
-                        <div class="col-12 p-3">The title can be very long. long long long</div>
+                        <div class="col-12 p-3 text-center" style="height: 100px;">The title can be very long. long long long</div>
                     </div>
-                    <div class="row mb-1">
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                    <div class="row">
+                        <div class="col d-grid m-4" style="height: 70px">
+                            <a href="#" class="btn btn-lg rounded-pill btn-success fs-2">Next</a>
                         </div>
                     </div>
-                    <div class="row mb-1">
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <a href="#" class="btn btn-lg rounded-pill btn-secondary">Auto</a>
                         </div>
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-success rounded-circle fs-4">1</button>
+                        <div class="col-6 d-grid">
+                            <a href="#" class="btn btn-lg rounded-pill btn-danger">Stop</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6 d-grid">
-                    <a href="#" class="btn btn-lg rounded-pill btn-success">Next</a>
-                </div>
-                <div class="col-2 text-center">
-                    <a href="#" class="btn btn-lg rounded-pill btn-secondary">Autoplay</a>
-                </div>
-                <div class="col-2 d-grid">
-                    <a href="#" class="btn btn-lg rounded-pill btn-danger">Stop</a>
+                <div class="row mb-1 w-75 justify-content-center mx-5">
+                    <div class="col-3">
+                        <h5>Previous numbers:</h5>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success rounded-circle fs-4">1</button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success rounded-circle fs-4">1</button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success rounded-circle fs-4">1</button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success rounded-circle fs-4">1</button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-success rounded-circle fs-4">1</button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-3">
-            <table class="table">
+            <table class="table m-0">
                 <tbody>
                 {% for song in songs %}
                     {% if forloop.counter0|divisibleby:5 %}
@@ -88,17 +88,10 @@
                 </tbody>
             </table>
         </div>
-    </div>
-        <div class="row">
-            <div class="col">
-                <p>{{ song.number }}</p>
-
-            </div>
-        </div>
 
     <!--  -->
 
-    <h2>game board</h2>
+    <!-- <h2>game board</h2> -->
 
     <!-- {% if playlist_form.errors %}
     <pre>{{ playlist_form.errors }}</pre>
@@ -106,8 +99,8 @@
     <!-- TO DELETE -->
 
 
-    <pre class="text-danger">{{ songs }}</pre>
-    <pre class="text-danger">{{ songs|length }}</pre>
+    <!-- <pre class="text-danger">{{ songs }}</pre>
+    <pre class="text-danger">{{ songs|length }}</pre> -->
  
 </div>
 {% endblock %}
