@@ -7,7 +7,7 @@
 		. . .
 	</button>
 	<ul class="dropdown-menu playlist-menu">
-		<li><a class="dropdown-item play-active" href="{% url 'game_board' playlist.id playlist.slug %}">Play</a></li>
+		<li><a class="dropdown-item play-active" href="{% url 'start_game' playlist.id playlist.slug %}">Play</a></li>
 		<li><a class="dropdown-item" href="{% url 'edit_playlist' playlist.id playlist.slug %}">Edit</a></li>
 		<li><a class="dropdown-item" href="{% url 'edit_playlist' playlist.id playlist.slug %}?open_modal=1" id="delete_button">Delete</a></li>
 	</ul>
