@@ -40,7 +40,7 @@
                     </div>
                     <div class="row">
                         <div class="col d-grid m-4" style="height: 70px">
-                            <form action="{% url 'next_number' playlist.id %}" method="post">
+                            <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
                                 <button class="btn btn-lg rounded-pill btn-success fs-2 px-5 w-100">NEXT</button>
                             </form>
