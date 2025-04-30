@@ -11,7 +11,7 @@
         <div class="col-9 top-space">
             <div class="row container-fluid justify-content-around">
                 <div class="col-4">
-                    <h3 class="mt-3">Playlist: {{ playlist.name }}</h3>
+                    Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
                 <div class="col-2">
                     <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Down</a>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-3">
                     <div class="row justify-content-center mt-3">
-                        <div class="col-2 current-number">-</div>
+                        <div class="col-2 current-number ">-</div>
                     </div>
                     <div class="row">
                         <div class="col-12 p-4 text-center text-secondary" style="height: 50px;">
@@ -69,19 +69,19 @@
                         <h5>Previous numbers:</h5>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">-</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">-</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">-</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">-</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">-</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                         <tr>
                     {% endif %}
                         <td class="p-1 m-0">
-                            <button class="btn btn-secondary rounded-circle">{{ song.number }}</button>
+                            <button class="btn btn-secondary rounded-circle text-dark">{{ song.number }}</button>
                         </td>
                     {% if forloop.counter|divisibleby:5 or forloop.last %}
                         </tr>
@@ -110,11 +110,11 @@
         <div class="col-9 top-space">
             <div class="row container-fluid justify-content-around">
                 <div class="col-4">
-                    <h3 class="mt-3">Playlist: {{ playlist.name }}</h3>
+                    Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
                 <!-- -----------------ALL PRIZES------------- -->
                 <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Down</a>
+                    <a href="#" class="rounded-4 h-100 w-100 btn prize-btn">Line Down</a>
                 </div>
                 <div class="col-2">
                     <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Across</a>
@@ -171,7 +171,7 @@
                     </div>
                     {% for p in previous_numbers %}
                     <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4">{{ p }}</button>
+                        <button class="btn btn-success rounded-circle fs-4 previous-num">{{ p }}</button>
                     </div>
 
                     {% endfor %}
@@ -187,9 +187,9 @@
                     {% endif %}
                         <td class="p-1 m-0">
                             {% if song.number in called_numbers %}
-                            <button class="btn btn-success rounded-circle">{{ song.number }}</button>
+                            <button class="btn called-num rounded-circle text-white"><strong>{{ song.number }}</strong></button>
                             {% else %}
-                            <button class="btn btn-secondary rounded-circle">{{ song.number }}</button>
+                            <button class="btn btn-secondary rounded-circle text-dark">{{ song.number }}</button>
                             {% endif %}
                         </td>
                     {% if forloop.counter|divisibleby:5 or forloop.last %}

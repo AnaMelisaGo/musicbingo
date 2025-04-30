@@ -6,6 +6,7 @@
     --bingo-danger: #edb1f1;
     --bingo-dark-success: #6acaba;
     --bingo-dark-violet: #702283;
+    --bingo-blue-gradient: linear-gradient(138deg, rgb(32, 201, 255) 36.7%, rgb(0, 8, 187) 84.4%, rgb(255, 255, 255) 119.7%);
 }
 
 /* ---------------------- GLOBAL ---------------------- */
@@ -43,6 +44,10 @@ a {
 
 .bg-bingo-violet {
     background-color: var(--bingo-violet);
+}
+
+.bg-bingo-gradient {
+    background-color: var(--bingo-blue-gradient);
 }
 
 /* ---------------------- HOME AND LOGO ---------------------- */
@@ -163,10 +168,11 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     height: 30px;
     width: 30px;
     font-size: 25px;
+    background: linear-gradient(to top, #cfd7e0 0%, #df8f9d 0%, #aef0a4 100%);
 }
 
 .prize-btn:hover {
-    background-color: var(--bingo-dark-success);
+    background: var(--bingo-dark-success);
 }
 
 .bingo-video{
@@ -176,10 +182,20 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 .current-number {
     border: var(--bingo-primary);
     border-radius: 50%;
-    background-color: var(--bingo-primary);
+    background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121));
+    border-color: white;
+    border-width: thick;
     color: white;
     font-size: 100px;
     height: 10rem;
     width: 10rem;
     text-align: center;
+}
+
+.called-num {
+    background: linear-gradient(99deg, rgb(210, 137, 2) 14.7%, rgb(213, 84, 82) 73%);
+}
+
+.previous-num {
+    background: radial-gradient(circle at -3.1% -4.3%, rgb(57, 255, 186) 0%, rgb(21, 38, 82) 90%);
 }
