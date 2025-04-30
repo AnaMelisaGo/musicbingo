@@ -13,19 +13,11 @@
                 <div class="col-4">
                     Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
+                {% for prize in prizes %}
                 <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Down</a>
+                    <a href="#" class="rounded-4 h-100 w-100 btn prize-btn">{{ prize }}</a>
                 </div>
-                <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Across</a>
-                </div>
-                <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Four Corners</a>
-                </div>
-                <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Full House</a>
-                </div>
-                
+                {% endfor %}
             </div>
             <div class="row">
                 <div class="col-9">
@@ -113,19 +105,17 @@
                     Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
                 <!-- -----------------ALL PRIZES------------- -->
+                {% for prize in prizes %}
+                {% if prize in prizes_claimed %}
                 <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn prize-btn">Line Down</a>
+                    <a href="#" class="rounded-4 h-100 w-100 btn disabled">{{ prize }}</a>
                 </div>
+                {% else %}
                 <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Line Across</a>
+                    <a href="#" class="rounded-4 h-100 w-100 btn prize-btn">{{ prize }}</a>
                 </div>
-                <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Four Corners</a>
-                </div>
-                <div class="col-2">
-                    <a href="#" class="rounded-4 h-100 w-100 btn bg-bingo-success prize-btn">Full House</a>
-                </div>
-                
+                {% endif %}
+                {% endfor %}                
             </div>
             <!-- -----------------SONGS------------- -->
             <div class="row">

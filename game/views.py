@@ -14,7 +14,7 @@ def start_gameboard(request, playlist_id, slug):
     request.session['previous_numbers'] = []
     request.session['current_number'] = None
     request.session['prizes'] = ['Line Down', 'Line Across', 'Four Corners', 'Full House']
-    request.session['available_prizes'] = []
+    request.session['prizes_claimed'] = []
 
     prizes = request.session.get('prizes', [])
     
@@ -51,6 +51,7 @@ def next_number(request):
         next_number = random.choice(remaining_numbers)
         called_numbers.append(next_number)
         current_number = next_number
+        
 
     #else
 
@@ -74,6 +75,8 @@ def music_bingo(request):
     current_number = request.session.get('current_number')
     previous_numbers = request.session.get('previous_numbers')
     current_song = songs.filter(number=current_number).first()
+    prizes = request.session.get('prizes')
+    prizes_claimed = request.session.get('prizes_claimed')
     context = {
         'called_numbers': called_numbers,
         'current_number': current_number,
@@ -82,6 +85,8 @@ def music_bingo(request):
         'songs': songs,
         'current_song': current_song,
         'game_board': False,
+        'prizes': prizes,
+        'prizes_claimed': prizes_claimed
     }
 
     return render(request, 'game/game_board.html', context)
