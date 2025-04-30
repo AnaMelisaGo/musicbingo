@@ -28,8 +28,7 @@ def start_gameboard(request, playlist_id, slug):
 
 @login_required
 def next_number(request):
-    """ Function to scramble the numbers and push the numbers to the variables and
-    pass them to the game board """
+    """ Function to scramble the numbers and push the numbers to the variables """
 
     if 'called_numbers' not in request.session:
         request.session['called_numbers'] = []
@@ -40,26 +39,45 @@ def next_number(request):
 
     all_numbers = list(songs.values_list('number', flat=True))
     called_numbers = request.session.get('called_numbers', [])
-    remaining_numbers = list(set(all_numbers) - set(called_numbers))
+    remaining_numbers = [num for num in all_numbers if num not in called_numbers]
     current_number = request.session.get('current_number')
+    previous_numbers = request.session.get('previous_numbers', [])
 
-    #p = called_numbers[::-5]
-    #previous_numbers = p[:-1]
-    #current_number = None
+    if not isinstance(called_numbers, list):
+        called_numbers = []
 
     if remaining_numbers:
         next_number = random.choice(remaining_numbers)
         called_numbers.append(next_number)
         current_number = next_number
+
     #else
 
-    return redirect('start_gameboard', playlist_id=playlist.id, slug=playlist.slug)
+    #update session variables
+    request.session['called_numbers'] = called_numbers
+    request.session['current_number'] = current_number
+    request.session['previous_numbers'] = called_numbers[-2:-7:-1]
+    request.session.modified = True
 
-    """ 
-    
-    return render(request, 'game/game_board.html', {
-            'called_numbers': called_numbers,
-            'all_numbers': all_numbers,
-            'previous_numbers': previous_numbers,
-            'current_number': current_number,
-        }) """
+    print('Called numbers:', request.session.get('called_numbers'))
+    print(f'this are all numbers {all_numbers}')
+    return redirect('music_bingo')
+
+
+@login_required
+def music_bingo(request):
+    playlist_id = request.session.get('playlist_id')
+    playlist = Playlist.objects.get(pk=playlist_id, game_master=request.user)
+    songs = Song.objects.filter(playlist=playlist)
+    called_numbers = request.session.get('called_numbers')
+    current_number = request.session.get('current_number')
+    previous_numbers = request.session.get('previous_numbers')
+    context = {
+        'called_numbers': called_numbers,
+        'current_number': current_number,
+        'previous_numbers': previous_numbers,
+        'playlist': playlist,
+        'songs': songs,
+    }
+
+    return render(request, 'game/game_board.html', context)

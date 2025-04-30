@@ -113,6 +113,10 @@
     {% for prize in prizes %}
     <button class="btn btn-small btn-danger">{{ prize }}</button>
     {% endfor %}
+    <p>CONTEXT FROM GAME FUNC</p>
+    <pre class="text-danger">{{ current_number }}</pre>
+    <pre class="text-danger">{{ called_numbers }}</pre>
+    <pre class="text-danger">{{ previous_numbers }}</pre>
 
 
 
