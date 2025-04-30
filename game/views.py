@@ -23,6 +23,7 @@ def start_gameboard(request, playlist_id, slug):
         'playlist': playlist,
         'songs': songs,
         'prizes': prizes,
+        'game_board': True
     })
 
 
@@ -72,12 +73,15 @@ def music_bingo(request):
     called_numbers = request.session.get('called_numbers')
     current_number = request.session.get('current_number')
     previous_numbers = request.session.get('previous_numbers')
+    current_song = songs.filter(number=current_number).first()
     context = {
         'called_numbers': called_numbers,
         'current_number': current_number,
         'previous_numbers': previous_numbers,
         'playlist': playlist,
         'songs': songs,
+        'current_song': current_song,
+        'game_board': False,
     }
 
     return render(request, 'game/game_board.html', context)
