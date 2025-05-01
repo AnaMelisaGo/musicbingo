@@ -23,6 +23,7 @@ def start_gameboard(request, playlist_id, slug):
     request.session['winner_prize'] = None
     request.session['winning_numbers'] = []
     request.session['winner'] = False
+    request.session['game_over'] = False
     
     # game = Game.objects.create(game_master=request.user, playlist=playlist)
     return render(request, 'game/game_board.html', {
@@ -103,6 +104,10 @@ def add_winner(request):
         messages.warning(request, f'Available prizes to win : {available_prizes}')
         print(request.session.get('prizes_claimed'))
 
+        if not available_prizes:
+            request.session['game_over'] = True
+            return redirect('end_game')
+
     return redirect('music_bingo')
 
 
@@ -141,6 +146,10 @@ def music_bingo(request):
 
 def end_game(request):
     """ End the music game """
-    # needs fixing
-    request.session.flush()
-    return redirect('home')
+    game_keys = ['called_numbers', 'previous_numbers', 'current_number', 'current_song', 'game_board', 'prizes', 'prizes_claimed', 'winner', 'winner_name', 'winner_prize', 'winning_numbers']
+    game_over = request.session.get('game_over')
+    for key in game_keys:
+        request.session.pop(key, None)
+    return render(request, 'game/game_board.html', {
+        'game_over': game_over,
+    })
