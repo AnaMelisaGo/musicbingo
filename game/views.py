@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from playlists.models import Playlist, Song
 from django.contrib import messages
 from .models import Game
-from .forms import AddWinnerForm
 import random
 import json
 
@@ -30,7 +29,8 @@ def start_gameboard(request, playlist_id, slug):
         'playlist': playlist,
         'songs': songs,
         'prizes': request.session.get('prizes', []),
-        'game_board': True
+        'game_board': True,
+        'music_bingo': True,
     })
 
 
@@ -65,9 +65,8 @@ def next_number(request):
         next_number = random.choice(remaining_numbers)
         called_numbers.append(next_number)
         current_number = next_number
-        
-
-    #else
+    else:
+        return redirect('end_game')
 
     #update session variables
     request.session['called_numbers'] = called_numbers
@@ -75,8 +74,6 @@ def next_number(request):
     request.session['previous_numbers'] = called_numbers[-2:-7:-1]
     request.session.modified = True
 
-    print('Called numbers:', request.session.get('called_numbers'))
-    print(f'this are all numbers {all_numbers}')
     return redirect('music_bingo')
 
 
@@ -102,7 +99,6 @@ def add_winner(request):
 
         available_prizes = [p for p in prizes if p not in prizes_claimed]
         messages.warning(request, f'Available prizes to win : {available_prizes}')
-        print(request.session.get('prizes_claimed'))
 
         if not available_prizes:
             request.session['game_over'] = True
@@ -139,6 +135,7 @@ def music_bingo(request):
         'winner_name': request.session.get('winner_name'),
         'winner_prize': request.session.get('winner_prize'),
         'winning_numbers': request.session.get('winning_numbers', []),
+        'game': True,
     }
 
     return render(request, 'game/game_board.html', context)

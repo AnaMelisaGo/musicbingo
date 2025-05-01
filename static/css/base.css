@@ -156,14 +156,11 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     font-size: 15px;
 }
 
-/* ---------------------- TOAST ---------------------- */
-.message-container {
-    margin-top: 7rem;
-    position: fixed;
-    z-index: 9999999;
+.song-num {
+    height: 40px;
+    width: 40px;
 }
 
-/* ---------------------- GAME ---------------------- */
 .prize-btn {
     height:100px;
     width:150px;
@@ -198,4 +195,21 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .previous-num {
     background: radial-gradient(circle at -3.1% -4.3%, rgb(57, 255, 186) 0%, rgb(21, 38, 82) 90%);
+    height: 50px;
+    width: 50px;
 }
+
+.winning-btn {
+    height: 45px;
+    width: 45px;
+    margin: 2px;
+}
+
+/* ---------------------- TOAST ---------------------- */
+.message-container {
+    margin-top: 7rem;
+    position: fixed;
+    z-index: 9999999;
+}
+
+/* ---------------------- GAME ---------------------- */

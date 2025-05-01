@@ -70,6 +70,18 @@
                         <i class="fa-solid fa-circle-arrow-left text-light fs-3 hvr-icon"></i>
                     </a>
                 </div>
+                {% elif music_bingo %}
+                <div class="col-md-1 col-sm-1 pe-0 me-0 ps-4">
+                    <a href="{% url 'start_gameboard' playlist.id playlist.slug %}?open_modal=3" class="hvr-icon-back">
+                        <i class="fa-solid fa-circle-arrow-left text-light fs-3 hvr-icon"></i>
+                    </a>
+                </div>
+                {% elif game %}
+                <div class="col-md-1 col-sm-1 pe-0 me-0 ps-4">
+                    <a href="#" class="hvr-icon-back d-none">
+                        <i class="fa-solid fa-circle-arrow-left text-light fs-3 hvr-icon"></i>
+                    </a>
+                </div>
                 {% else %}
                 <div class="col-md-1 col-sm-1 pe-0 me-0 ps-4">
                     {% include 'home/includes/main-nav.html' %}

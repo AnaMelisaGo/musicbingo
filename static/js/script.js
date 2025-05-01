@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     toastList.forEach(toast => toast.show());
 });
 
-// Delete modal
+// playlist modal
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('open_modal') === '1') {
@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (urlParams.get('open_modal') === '2') {
         const backButton = document.getElementById('backButtonModal');
         backButton.click();
+    }
+    if (urlParams.get('open_modal') === '3') {
+        const backGame = document.getElementById('backGameModal');
+        backGame.click();
     }
 });
 
