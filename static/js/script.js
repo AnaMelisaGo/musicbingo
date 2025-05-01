@@ -48,3 +48,34 @@ document.querySelectorAll('.winning-btn').forEach(button => {
         document.getElementById('selected_numbers_input').value = JSON.stringify(Array.from(selectedNumbers));
     });
 });
+
+// canvas confetti home button
+
+document.addEventListener('DOMContentLoaded', function() {
+    const handleConfetti = () => {
+        confetti({
+            particleCount: 100,
+            spread: 100,
+            scalar: 2,
+        });
+    }
+
+    const winnerConfetti = () => {
+        confetti({
+            particleCount: 700,
+            spread: 500,
+        });
+    }
+
+    const homeButton = document.querySelector('#home-button');
+    if (homeButton) {
+        homeButton.addEventListener('click', handleConfetti);
+    }
+
+    const checkWinner = document.querySelector('#check-winner');
+    if (checkWinner) {
+        checkWinner.addEventListener('click', winnerConfetti);
+    }
+});
+
+
