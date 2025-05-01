@@ -165,8 +165,8 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 /* ---------------------- GAME ---------------------- */
 .prize-btn {
-    height: 30px;
-    width: 30px;
+    height:100px;
+    width:150px;
     font-size: 25px;
     background: linear-gradient(to top, #cfd7e0 0%, #df8f9d 0%, #aef0a4 100%);
 }

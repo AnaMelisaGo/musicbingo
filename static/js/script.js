@@ -17,3 +17,34 @@ document.addEventListener('DOMContentLoaded', function() {
         backButton.click();
     }
 });
+
+// prize button
+document.querySelectorAll('.prize-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const prize = this.getAttribute('data-prize');
+        document.getElementById('prizeInput').value = prize;
+    });
+});
+
+
+// Checking winning numbers
+const selectedNumbers = new Set();
+
+document.querySelectorAll('.winning-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const number = button.getAttribute('data-number');
+
+        if (selectedNumbers.has(number)) {
+            selectedNumbers.delete(number);
+            button.classList.remove('btn-success');
+            button.classList.add('btn-secondary');
+        }
+        else {
+            selectedNumbers.add(number);
+            button.classList.remove('btn-secondary');
+            button.classList.add('btn-success');
+        }
+
+        document.getElementById('selected_numbers_input').value = JSON.stringify(Array.from(selectedNumbers));
+    });
+});
