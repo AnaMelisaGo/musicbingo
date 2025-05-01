@@ -113,12 +113,15 @@ def music_bingo(request):
     songs = Song.objects.filter(playlist=playlist)
     current_number = request.session.get('current_number')
     current_song = songs.filter(number=current_number).first()
+    called_numbers = request.session.get('called_numbers',[])
+    called_num = sorted(called_numbers)
     prizes_claimed = request.session.get('prizes_claimed', [])
     prizes = request.session.get('prizes')
     print(f'these are prizes: {len(prizes)}, these are claimed: {len(prizes_claimed)}')
 
     context = {
-        'called_numbers': request.session.get('called_numbers', []),
+        'called_numbers': called_numbers,
+        'called_num': called_num,
         'previous_numbers': request.session.get('previous_numbers', []),
         'current_number': current_number,
         'playlist': playlist,
@@ -138,5 +141,6 @@ def music_bingo(request):
 
 def end_game(request):
     """ End the music game """
+    # needs fixing
     request.session.flush()
     return redirect('home')
