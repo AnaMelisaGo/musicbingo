@@ -9,7 +9,7 @@ import json
 
 @login_required
 def start_gameboard(request, playlist_id, slug):
-    """ Game board to play music bingo """
+    """ Game board to play music bingo and create the game to store data"""
     playlist = Playlist.objects.get(pk=playlist_id, slug=slug, game_master=request.user)
     songs = Song.objects.filter(playlist=playlist)
     request.session['playlist_id'] = playlist_id
@@ -19,19 +19,16 @@ def start_gameboard(request, playlist_id, slug):
     request.session['prizes'] = ['Line Down', 'Line Across', 'Four Corners', 'Full House']
     request.session['prizes_claimed'] = []
 
-    #TEST FOR WINNERS
     request.session['winner_name'] = None
     request.session['winner_prize'] = None
     request.session['winning_numbers'] = []
     request.session['winner'] = False
-
-    prizes = request.session.get('prizes', [])
     
     # game = Game.objects.create(game_master=request.user, playlist=playlist)
     return render(request, 'game/game_board.html', {
         'playlist': playlist,
         'songs': songs,
-        'prizes': prizes,
+        'prizes': request.session.get('prizes', []),
         'game_board': True
     })
 
@@ -42,6 +39,7 @@ def next_number(request):
 
     if 'called_numbers' not in request.session:
         request.session['called_numbers'] = []
+
     winner = request.session.get('winner')
     if winner:
         request.session['winner'] = False
@@ -83,10 +81,7 @@ def next_number(request):
 
 @login_required
 def add_winner(request):
-    """ if request.method == 'POST':
-        form = AddWinnerForm(request.POST) """
-
-    # TEST FOR WINNER
+    """ Function to add winner in the session and create the model to store data of the winner """
     prizes = request.session.get('prizes')
     prizes_claimed = request.session.get('prizes_claimed', [])
 
@@ -110,14 +105,6 @@ def add_winner(request):
 
     return redirect('music_bingo')
 
-""" @login_required
-def show_winner(request):
-    context = {
-        'winner_name': request.session.get('winner_name'),
-        'winner_prize': request.session.get('winner_prize'),
-        'winning_numbers': request.session.get('winning_numbers', []),
-    }
-    return render(request, 'game/game_board', context) """
 
 @login_required
 def music_bingo(request):
@@ -130,7 +117,6 @@ def music_bingo(request):
     prizes = request.session.get('prizes')
     print(f'these are prizes: {len(prizes)}, these are claimed: {len(prizes_claimed)}')
 
-    #TEST FOR WINNER
     context = {
         'called_numbers': request.session.get('called_numbers', []),
         'previous_numbers': request.session.get('previous_numbers', []),
@@ -148,3 +134,9 @@ def music_bingo(request):
     }
 
     return render(request, 'game/game_board.html', context)
+
+
+def end_game(request):
+    """ End the music game """
+    request.session.flush()
+    return redirect('home')

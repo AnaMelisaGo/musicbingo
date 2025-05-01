@@ -7,4 +7,5 @@ urlpatterns = [
     path('next_number/', views.next_number, name='next_number'),
     path('music_bingo/', views.music_bingo, name='music_bingo'),
     path('add_winner/', views.add_winner, name='add_winner'),
+    path('end_game/', views.end_game, name='end_game'),
 ]

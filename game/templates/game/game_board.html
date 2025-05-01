@@ -194,7 +194,9 @@
                             <a href="#" class="btn btn-lg rounded-pill btn-secondary">Auto</a>
                         </div>
                         <div class="col-6 d-grid">
-                            <a href="#" class="btn btn-lg rounded-pill btn-danger">Stop</a>
+                            <button type="button" class="btn btn-lg rounded-pill btn-danger" data-bs-toggle="modal" data-bs-target="#stopGameModal">
+                                Stop
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -245,6 +247,28 @@
                 <div class="modal-body">
                     Congratulations {{ winner_name }}! 🎉  
                     You won!
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal end game-->
+    <div class="modal fade text-dark" id="stopGameModal" tabindex="-1" aria-labelledby="stopGameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger-subtle">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>End the game</strong></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to end this game?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'end_game' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">End game</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
