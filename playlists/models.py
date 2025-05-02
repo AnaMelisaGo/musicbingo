@@ -13,7 +13,7 @@ class Playlist(models.Model):
 
     class Meta:
         """ Display the playlist in ascending order according to the date created """
-        ordering = ['created_on']
+        ordering = ['name']
 
     def song_count(self):
         """ Function to count the number of songs in the playlist """

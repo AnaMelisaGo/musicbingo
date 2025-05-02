@@ -45,7 +45,7 @@
             </div>
             <div class="row">
                 <div class="col-9">
-                    <video class="object-fit-cover border rounded my-3 ms-2 bingo-video" controls>
+                    <video class="object-fit-cover border rounded my-3 bingo-video" controls>
                         <source src="#" type="video/mp4">
                     </video>
                 </div>
@@ -183,10 +183,14 @@
             </div>
             <!-- -----------------SONGS------------- -->
             <div class="row">
-                <div class="col-9">
-                    <video class="object-fit-cover border rounded my-3 ms-2 bingo-video" controls>
-                        <source src="{{ current_song.video_file }}" type="video/mp4">
-                    </video>
+                <div class="col-9 d-flex justify-content-center align-items-center">
+                    {% if current_song.video_file %}
+                        <video class="object-fit-cover border rounded my-3 bingo-video" controls>
+                            <source src="{{ current_song.video_file.url }}" type="video/mp4">
+                        </video>
+                    {% else %}
+                        <img src="{% static 'images/no-image.png' %}" alt="No video available"class="object-fit-cover border rounded my-3 bingo-video">
+                    {% endif %}
                 </div>
                 <div class="col-3">
                     <div class="row justify-content-center mt-4">

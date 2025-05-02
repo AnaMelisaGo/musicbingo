@@ -7,5 +7,5 @@ def global_context(request):
         playlists = Playlist.objects.filter(game_master=request.user)
         return {'playlists': playlists}
     return {
-        'playlists': {},
+        'playlists': [],
     }
