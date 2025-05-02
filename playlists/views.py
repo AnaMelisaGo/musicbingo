@@ -64,7 +64,9 @@ def edit_playlist(request, playlist_id, slug):
             formset.save()
             messages.info(request, f'{playlist.name} is successfully updated!')
             return redirect('home')
-            #return redirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            messages.error(request, f'Error found')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
         playlist_form = AddPlaylistForm(instance=playlist)
         formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))

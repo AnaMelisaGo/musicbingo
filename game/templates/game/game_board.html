@@ -185,7 +185,7 @@
             <div class="row">
                 <div class="col-9 d-flex justify-content-center align-items-center">
                     {% if current_song.video_file %}
-                        <video class="object-fit-cover border rounded my-3 bingo-video" controls>
+                        <video class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
                             <source src="{{ current_song.video_file.url }}" type="video/mp4">
                         </video>
                     {% else %}

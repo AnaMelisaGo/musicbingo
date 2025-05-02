@@ -66,6 +66,7 @@ def next_number(request):
         called_numbers.append(next_number)
         current_number = next_number
     else:
+        request.session['game_over'] = True
         return redirect('end_game')
 
     #update session variables
