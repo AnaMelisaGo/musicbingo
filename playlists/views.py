@@ -32,7 +32,7 @@ def add_playlist(request):
             for song in songs:
                 song.playlist = playlist # Assign the playlist to each song first
                 song.save()
-            messages.info(request, f'Your new playlist ({ playlist.name }) is successfully saved!')
+            messages.success(request, f'Your new playlist ({ playlist.name }) is successfully saved!')
             return redirect('home')
         else:
             messages.error(request, f'Something is wrong, please check!')
@@ -84,7 +84,7 @@ def delete_playlist(request, playlist_id, slug):
     """ Delete playlist """
     playlist = get_object_or_404(Playlist, pk=playlist_id, slug=slug, game_master=request.user)
     playlist.delete()
-    messages.info(request, f'Your playlist is deleted!')
+    messages.success(request, f'Your playlist is deleted!')
     return redirect('home')
 
 """ 
