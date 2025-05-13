@@ -54,12 +54,14 @@
 			</li>	
 		</ul>
 		{% else %}
-		<p class="text-center text-secondary fs-5 mt-5 pt-5">Please log in to your account.</p>
-		<!-- LOG IN BUTTON -->
-		<!-- LOG IN BUTTON -->
-		<!-- LOG IN BUTTON -->
-		<!-- LOG IN BUTTON -->
-		<!-- LOG IN BUTTON -->
+		<div class="container-fluid text-center">
+			<div class="row align-middle">
+				<div class="col">
+					<p class="text-secondary fs-5 mt-5 pt-5">Please login to your account.</p>
+					<a href="{% url 'account_login' %}" class="btn login-btn">Login</a>
+				</div>
+			</div>
+		</div>
 		{% endif %}
 	</div>
 </div>

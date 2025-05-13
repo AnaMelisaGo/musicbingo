@@ -108,6 +108,18 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     background-color: var(--bingo-dark-success);
 }
 
+.login-btn {
+    background-color: var(--bingo-dark-violet);
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.login-btn:hover {
+    background-color: var(--bingo-violet);
+    color: var(--bingo-dark-violet);
+}
+
 /* ---------------------- PLAYLIST TEMPLATES ---------------------- */
 .top-space {
     margin-top: 6rem;
