@@ -8,13 +8,7 @@ from .models import Playlist, Song
 
 @login_required
 def all_playlists(request):
-    """ To view playlist """
-    playlists = Playlist.objects.filter(game_master=request.user)
-    return render(request, 'base.html', {
-        'playlist_page': True,
-        'playlists': playlists,
-    }
-    )
+    return render(request, 'playlists/includes/all_playlists.html', {})
 
 
 @login_required
