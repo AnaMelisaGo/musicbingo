@@ -16,44 +16,30 @@
 {% block content %}
 <div class="container-fluid mx-0 pb-5 form-container">
     <h2>Playlist</h2>
-
-    <!-- {% if playlist_form.errors %}
-    <pre>{{ playlist_form.errors }}</pre>
-    {% endif %} -->
-    <!-- TO DELETE -->
-
-    {% if formset.errors %}
-    <pre>{{ formset.errors }}</pre>
-    {% endif %}
-    <!-- 
-    <pre class="text-danger">{{ songs }}</pre>
-    <pre class="text-danger">{{ songs|length }}</pre>
-    
-    {% for song in songs %}
-        <div class="row">
-            <div class="col">
-                <p>{{ song.number }}</p>
-
-            </div>
-        </div>
-    {% endfor %} -->
-
-    <!--  -->
-
-    <form class="scrollable" method="post" action="{% url 'edit_playlist' playlist.id playlist.slug %}" enctype="multipart/form-data">
+    <form id="upload-form" class="scrollable" method="post" action="{% url 'edit_playlist' playlist.id playlist.slug %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ formset.management_form }}
         <div class="row">
             <div class="col-4">
                 {{ playlist_form | crispy }}
             </div>
-            <div class="col-4 pt-4">
-                <button class="btn btn-info hvr-grow-shadow" type="submit">Update Playlist</button>
+            <div class="col-4 pt-4 align-self-center">
+                <button id="upload-btn" class="btn btn-info hvr-grow-shadow" type="submit">Update Playlist</button>
             </div>
         </div>
 
         <br>
-        <h3>Upload Songs</h3>
+        <div class="d-flex">
+            <h3>Upload Songs</h3>
+            {% comment %} PROGRESS BAR {% endcomment %}
+            <div class="progress ms-3" id="progress-wrapper" style="width: 300px; display: none;">
+                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%">
+                    0%
+                </div>
+            </div>
+            {% comment %} UPLOAD STATUS {% endcomment %}
+            <div id="upload-status" class="mt-2"></div>
+        </div>
         <table class="table table-upload table-sm">
             <thead>
                 <tr>
@@ -73,9 +59,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="d-grid col-6 mx-auto">
-            <button class="btn btn-info btn-lg hvr-grow-shadow" type="submit">Update Playlist</button>
-        </div>
     </form>
     <!-- DELETE MODAL -->
     <button type="button" id="deleteModalButton" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -117,4 +100,55 @@
         </div>
     </div>  
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+<script>
+document.getElementById('upload-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(formset);
+    const progressBar = document.getElementById('progress-bar');
+    const progressWrapper = document.getElementById('progress-wrapper');
+    const status = document.getElementById('upload-status');
+    const uploadBtn = document.getElementById('upload-btn');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '', true);
+
+    progressWrapper.style.display = 'block;
+    progressBar.style.width = '0%';
+    progressBar.textContent = '0%';
+    uploadBtn.disabled = true;
+    status.innerHTML = "Uploading...";
+
+    xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            const percent = Math.round((e.loaded /e.total) * 100);
+            progress.style.width = percent + '%';
+            progress.textContent = percent + '%';
+
+        }
+    });
+
+    xhr.onload =function() {
+        uploadBtn.disbled = false;
+        if (xhr.status === 200) {
+            status.innerHTML = "<span class="text-success">Upload complete!</span>"
+            form.reset();
+            progressBar.style.width = '100%';
+            progressBar.textContent = '100%';
+
+        } else {
+            status.innerHTML = "<span class="text-danger">Upload failed.</span>"
+        }
+    };
+
+    xhr.onerror = function() {
+        uploadBtn.disabled = false;
+        status.innerHTML = "<span class="text-danger">An error occured.</span>"
+    };
+    xhr.send(formData);
+});
+</script>
 {% endblock %}

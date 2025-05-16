@@ -22,33 +22,32 @@
                 <div class="col-4">
                     {{ playlist_form | crispy }}
                 </div>
-                <div class="col-4 pt-4">
+                <div class="col-4 pt-4 align-self-center">
                     <button class="btn btn-info hvr-grow-shadow" type="submit">Save Playlist</button>
                 </div>
             </div>
     
             <br>
-            <h3>Upload Songs</h3>
-            <table class="table table-upload table-sm">
-                <thead>
-                    <tr>
-                        {% for field in formset.forms.0.visible_fields %}
-                        <th>{{ field.label }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for form in formset %}
+            <div class="d-none">
+                <h3>Upload Songs</h3>
+                <table class="table table-upload table-sm">
+                    <thead>
                         <tr>
-                            {% for field in form.visible_fields %}
-                                <td>{{ field }}</td>
+                            {% for field in formset.forms.0.visible_fields %}
+                            <th>{{ field.label }}</th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="d-grid col-6 mx-auto">
-                <button class="btn btn-info btn-lg hvr-grow-shadow" type="submit">Save New Playlist</button>
+                    </thead>
+                    <tbody>
+                        {% for form in formset %}
+                            <tr>
+                                {% for field in form.visible_fields %}
+                                    <td>{{ field }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
         </form>

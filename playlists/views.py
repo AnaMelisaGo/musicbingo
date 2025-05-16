@@ -80,13 +80,3 @@ def delete_playlist(request, playlist_id, slug):
     playlist.delete()
     messages.success(request, f'Your playlist is deleted!')
     return redirect('home')
-
-""" 
-def all_songs(request, playlist_id, slug):
-    playlist = get_object_or_404(Playlist, pk=playlsit_id, slug=slug, game_master=request.user)
-    songs = get_object_or_404(Song, playlist=playlist)
-    return render(request, 'playlist/edit_playlist', {
-        'songs': songs,
-    })
-
- """
