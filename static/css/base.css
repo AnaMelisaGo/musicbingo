@@ -45,6 +45,9 @@ a {
 .bg-bingo-violet {
     background-color: var(--bingo-violet);
 }
+.bg-bingo-dark-violet {
+    background-color: var(--bingo-dark-violet);
+}
 
 .bg-bingo-gradient {
     background-color: var(--bingo-blue-gradient);
