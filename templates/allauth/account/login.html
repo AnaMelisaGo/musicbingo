@@ -4,13 +4,13 @@
 {% block extra_title %}- Log in{% endblock %}
 
 {% block inner_content %}
-    <h2>Sign in</h2>    
-    <form method="post" action="{% url 'account_login' %}">
-      {% csrf_token %}
-      {{ form | crispy }}
-      <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary btn-lg px-5">Login</button>
-      </div>
-    </form>
-    <p>Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a></p>
+<h2>Sign in</h2>    
+<form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-lg px-5">Login</button>
+    </div>
+</form>
+<p class="fs-6 py-2 text-center">Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a></p>
 {% endblock inner_content %}

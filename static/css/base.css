@@ -45,6 +45,7 @@ a {
 .bg-bingo-violet {
     background-color: var(--bingo-violet);
 }
+
 .bg-bingo-dark-violet {
     background-color: var(--bingo-dark-violet);
 }
@@ -52,7 +53,10 @@ a {
 .bg-bingo-gradient {
     background-color: var(--bingo-blue-gradient);
 }
-
+/* ---------------------- BUTTONS HOVER ---------------------- */
+.btn.bg-bingo-dark-violet:hover {
+    background-color: #b736d7;
+}
 /* ---------------------- HOME AND LOGO ---------------------- */
 
 .logo-music {

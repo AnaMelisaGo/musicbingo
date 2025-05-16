@@ -1,5 +1,11 @@
 {% extends "account/base_manage_email.html" %}
-{% load static allauth i18n %}
+{% block extra_title %}- Account{% endblock extra_title %}
+{% block inner_content %}
+<h2>Your Account</h2>
+<p><strong>Userame: </strong>{{ user.username }}</p>
+<p><strong>Email address: </strong>{{ user.email }}</p>
+{% endblock inner_content %}
+{% comment %} {% load static allauth i18n %}
 {% block head_title %}
     {% trans "Email Addresses" %}
 {% endblock head_title %}
@@ -81,3 +87,4 @@
 }
     </script>
 {% endblock extra_body %}
+ {% endcomment %}
