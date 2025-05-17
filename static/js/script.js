@@ -91,9 +91,24 @@ document.addEventListener("DOMContentLoaded", function () {
             if (input) {
                 input.value = 'true';
                 const previewCell = this.closest('td').previousElementSibling;
-                if (previewCell) previewCell.innerHTML = 'Video removed';
+                previewCell.innerHTML = '<small>Video removed</small>';
+                previewCell.classList.add('text-muted');
                 this.remove();
             }
         });
     });
 });
+
+// for video file name
+document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('input[type="file"]').forEach(input => {
+        input.addEventListener('change', function () {
+            const fileNameDisplay = this.closest('td').querySelector('.file-name-display');
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    });
+})

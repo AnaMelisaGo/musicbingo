@@ -66,7 +66,10 @@
                                 <input type="hidden" name="clear_video_{{ forloop.counter0 }}" id="clear_video_{{ forloop.counter0 }}" value="false">
                             </td>
                         {% else %}
-                            <td>{{ form.video_file }}</td>
+                            <td>
+                                {{ form.video_file }}
+                                <small class="text-danger file-name-display"></small>
+                            </td>
                             <td>
                                 <input type="hidden" name="clear_video_{{ forloop.counter0 }}" id="clear_video_{{ forloop.counter0 }}" value="false">
                             </td>   
