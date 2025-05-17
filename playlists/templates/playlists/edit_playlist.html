@@ -52,9 +52,25 @@
                 {% for form in formset %}
                     <tr>
                         {{ form.id }}
-                        {% for field in form.visible_fields %}
-                            <td>{{ field }}</td>
-                        {% endfor %}
+                        <td>{{ form.number }}</td>
+                        <td>{{ form.title }}</td>
+                        <td>{{ form.artist }}</td>
+                        {% if form.instance.video_file %}
+                            <td>
+                                <a href="{{ form.instance.video_file.url }}" target="_blank">{{ form.instance.video_file.name }}</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm delete-video-btn" data-index="{{ forloop.counter0 }}">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                                <input type="hidden" name="clear_video_{{ forloop.counter0 }}" id="clear_video_{{ forloop.counter0 }}" value="false">
+                            </td>
+                        {% else %}
+                            <td>{{ form.video_file }}</td>
+                            <td>
+                                <input type="hidden" name="clear_video_{{ forloop.counter0 }}" id="clear_video_{{ forloop.counter0 }}" value="false">
+                            </td>   
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -102,12 +118,15 @@
 </div>
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{% static 'js/script.js' %}"></script>
+    {% endblock %}
 {% block postloadjs %}
 <script>
 document.getElementById('upload-form').addEventListener('submit', function(e){
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(formset);
+    const formData = new FormData(form);
     const progressBar = document.getElementById('progress-bar');
     const progressWrapper = document.getElementById('progress-wrapper');
     const status = document.getElementById('upload-status');
@@ -116,7 +135,7 @@ document.getElementById('upload-form').addEventListener('submit', function(e){
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '', true);
 
-    progressWrapper.style.display = 'block;
+    progressWrapper.style.display = 'block';
     progressBar.style.width = '0%';
     progressBar.textContent = '0%';
     uploadBtn.disabled = true;
@@ -125,29 +144,44 @@ document.getElementById('upload-form').addEventListener('submit', function(e){
     xhr.upload.addEventListener('progress', function(e) {
         if (e.lengthComputable) {
             const percent = Math.round((e.loaded /e.total) * 100);
-            progress.style.width = percent + '%';
+            progressBar.style.width = percent + '%';
             progress.textContent = percent + '%';
 
         }
     });
 
     xhr.onload =function() {
-        uploadBtn.disbled = false;
+        uploadBtn.disabled = false;
         if (xhr.status === 200) {
-            status.innerHTML = "<span class="text-success">Upload complete!</span>"
-            form.reset();
-            progressBar.style.width = '100%';
-            progressBar.textContent = '100%';
-
-        } else {
-            status.innerHTML = "<span class="text-danger">Upload failed.</span>"
+            const response = JSON.parse(xhr.responseText);
+            if (response.redirect_url) {
+                window.location.href = response.redirect_url;
+            } else {
+                status.innerHTML = '<span class="text-success">Upload complete!</span>';
+            }
         }
     };
 
     xhr.onerror = function() {
         uploadBtn.disabled = false;
-        status.innerHTML = "<span class="text-danger">An error occured.</span>"
+        status.innerHTML = '<span class="text-danger">An error occured.</span>';
     };
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    xhr.setRequestHeader('X-CSRFToken', csrftoken);
     xhr.send(formData);
 });
 </script>

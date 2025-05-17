@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.urls import reverse
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -53,13 +55,30 @@ def edit_playlist(request, playlist_id, slug):
         playlist_form = AddPlaylistForm(request.POST, instance=playlist)
         formset = SongUploadFormset(request.POST, request.FILES, queryset=Song.objects.filter(playlist=playlist))
 
+        print("POST data:", request.POST)
+        print("Files:", request.FILES)
+        print("Formset cleaned data:")
         if playlist_form.is_valid() and formset.is_valid():
             playlist_form.save()
-            formset.save()
+            formset_instances = formset.save(commit=False)
+
+            for i, form in enumerate(formset.forms):
+                song = form.instance
+                clear_video = request.POST.get(f'clear_video_{i}') == 'true'
+                if clear_video and song.video_file:
+                    song.video_file.delete(save=False)
+                    song.video_file = None
+                if form.has_changed() or clear_video:
+                    form.save()
+                for song in formset_instances:
+                    song.playlist = playlist
+                    song.save()
+            print(form.cleaned_data)
             messages.info(request, f'{playlist.name} is successfully updated!')
-            return redirect('home')
+            return JsonResponse({'redirect_url': reverse('home')})
         else:
             messages.error(request, f'Error found')
+            print("Formset errors:", formset.errors)
             return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
         playlist_form = AddPlaylistForm(instance=playlist)

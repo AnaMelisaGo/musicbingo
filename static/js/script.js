@@ -82,4 +82,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
+// trash button
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.delete-video-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const index = this.getAttribute('data-index');
+            const input = document.getElementById('clear_video_' + index);
+            if (input) {
+                input.value = 'true';
+                const previewCell = this.closest('td').previousElementSibling;
+                if (previewCell) previewCell.innerHTML = 'Video removed';
+                this.remove();
+            }
+        });
+    });
+});
