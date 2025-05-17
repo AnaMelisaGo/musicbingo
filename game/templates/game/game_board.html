@@ -121,14 +121,14 @@
         </div>
     </div>
     {% else %}
-    <!-- ------------WHEN START/NEXT BUTTON CLICKED----------------- -->
+    <!-- WHEN START/NEXT BUTTON CLICKED -->
     <div class="row">
         <div class="col-9 top-space">
             <div class="row container-fluid justify-content-around">
                 <div class="col-4">
                     Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
-                <!-- -----------------ALL PRIZES------------- -->
+                <!-- ALL PRIZES -->
                 {% for prize in prizes %}
                 {% if prize in prizes_claimed %}
                 <div class="col-2">
@@ -142,7 +142,7 @@
                     {{ prize }}
                 </button>
                 {% endif %}
-    <!-- ---------------------------- check prize MODAL-------------------------------- -->
+    <!--  check prize MODAL -->
 
                 <div class="modal fade text-dark" id="prizesModal" tabindex="-1" aria-labelledby="prizesModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -181,7 +181,7 @@
                 </div>
                 {% endfor %}                
             </div>
-            <!-- -----------------SONGS------------- -->
+            <!--  SONGS -->
             <div class="row">
                 <div class="col-9 d-flex justify-content-center align-items-center">
                     {% if current_song.video_file %}
@@ -259,7 +259,7 @@
             </table>
         </div>
     </div>
-    <!-- ---------------------------- show winner MODAL-------------------------------- -->
+    <!-- show winner MODAL -->
 
     <div class="modal fade text-dark" id="winnerModal" tabindex="-1" aria-labelledby="winnerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -317,7 +317,7 @@
 
     
     <!--  -->
-    <!-- TO DELETE ----------------------------------------------- -->
+    <!-- TO DELETE  -->
 
     <h2>game board</h2>
 

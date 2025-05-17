@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from playlists.models import Playlist, Song
 from django.contrib import messages
-from .models import Game
+from .models import Game, Winner
 import random
 import json
 
@@ -23,8 +23,18 @@ def start_gameboard(request, playlist_id, slug):
     request.session['winning_numbers'] = []
     request.session['winner'] = False
     request.session['game_over'] = False
+
+    # Check if the game already exists
+    game_id = request.session.get('game_id')
+    if game_id:
+        game = Game.objects.filter(pk=game_id, game_master=request.user, playlist=playlist).first()
+    else:
+        game = None
+
+    if not game:
+        game = Game.objects.create(game_master=request.user, playlist=playlist)
+        request.session['game_id'] = game.id
     
-    # game = Game.objects.create(game_master=request.user, playlist=playlist)
     return render(request, 'game/game_board.html', {
         'playlist': playlist,
         'songs': songs,
@@ -56,7 +66,6 @@ def next_number(request):
     called_numbers = request.session.get('called_numbers', [])
     remaining_numbers = [num for num in all_numbers if num not in called_numbers]
     current_number = request.session.get('current_number')
-    previous_numbers = request.session.get('previous_numbers', [])
 
     if not isinstance(called_numbers, list):
         called_numbers = []
@@ -99,11 +108,20 @@ def add_winner(request):
         request.session['winner'] = True
 
         available_prizes = [p for p in prizes if p not in prizes_claimed]
-        messages.warning(request, f'Available prizes to win : {available_prizes}')
+        # Create a winner instance to store the winners
+        # and their winning numbers
+        game_id = request.session.get('game_id')   
+        game = Game.objects.get(pk=game_id)
+        winner = Winner.objects.create(game=game, name=name, prize=prize, winning_numbers=numbers)
+        winner.save()
+        request.session.modified = True
 
         if not available_prizes:
             request.session['game_over'] = True
+            messages.warning(request, f'No more prizes available to win! Game over!')
             return redirect('end_game')
+        else:
+            messages.warning(request, f'Available prizes to win : {available_prizes}')
 
     return redirect('music_bingo')
 
@@ -144,7 +162,12 @@ def music_bingo(request):
 
 def end_game(request):
     """ End the music game """
-    game_keys = ['called_numbers', 'previous_numbers', 'current_number', 'current_song', 'game_board', 'prizes', 'prizes_claimed', 'winner', 'winner_name', 'winner_prize', 'winning_numbers']
+    game_id = request.session.get('game_id')
+    game = Game.objects.get(pk=game_id)
+    game.called_numbers = request.session.get('called_numbers', [])
+    game.save()
+
+    game_keys = ['called_numbers', 'previous_numbers', 'current_number', 'current_song', 'game_board', 'prizes', 'prizes_claimed', 'winner', 'winner_name', 'winner_prize', 'winning_numbers', 'game_id']
     game_over = request.session.get('game_over')
     for key in game_keys:
         request.session.pop(key, None)
