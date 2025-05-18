@@ -24,15 +24,26 @@ def start_gameboard(request, playlist_id, slug):
     request.session['winner'] = False
     request.session['game_over'] = False
 
+    # Check if no game_id in session
+    if 'game_id' not in request.session:
+        # If not, set it to None
+        request.session['game_id'] = None
+    
     # Check if the game already exists
     game_id = request.session.get('game_id')
-    if game_id:
-        game = Game.objects.filter(pk=game_id, game_master=request.user, playlist=playlist).first()
-    else:
-        game = None
+    game = None
 
+    if game_id:
+        try:
+                game = Game.objects.get(pk=game_id, game_master=request.user, playlist=playlist)
+        except Game.DoesNotExist:
+            game = None
+    # If the game does not exist, create a new one
     if not game:
-        game = Game.objects.create(game_master=request.user, playlist=playlist)
+        # Try to find existing game
+        game = Game.objects.filter(pk=game_id, game_master=request.user, playlist=playlist).first()
+        if not game:
+            game = Game.objects.create(game_master=request.user, playlist=playlist)
         request.session['game_id'] = game.id
     
     return render(request, 'game/game_board.html', {
@@ -110,8 +121,10 @@ def add_winner(request):
         available_prizes = [p for p in prizes if p not in prizes_claimed]
         # Create a winner instance to store the winners
         # and their winning numbers
+        playlist_id = request.session.get('playlist_id')
+        playlist = Playlist.objects.get(pk=playlist_id, game_master=request.user)
         game_id = request.session.get('game_id')   
-        game = Game.objects.get(pk=game_id)
+        game = Game.objects.get(pk=game_id, game_master=request.user, playlist=playlist)
         winner = Winner.objects.create(game=game, name=name, prize=prize, winning_numbers=numbers)
         winner.save()
         request.session.modified = True
@@ -137,7 +150,9 @@ def music_bingo(request):
     called_num = sorted(called_numbers)
     prizes_claimed = request.session.get('prizes_claimed', [])
     prizes = request.session.get('prizes')
-    print(f'these are prizes: {len(prizes)}, these are claimed: {len(prizes_claimed)}')
+    game_id = request.session.get('game_id')
+    game = Game.objects.get(pk=game_id, game_master=request.user, playlist=playlist)
+    winners = Winner.objects.filter(game=game)
 
     context = {
         'called_numbers': called_numbers,
@@ -154,16 +169,32 @@ def music_bingo(request):
         'winner_name': request.session.get('winner_name'),
         'winner_prize': request.session.get('winner_prize'),
         'winning_numbers': request.session.get('winning_numbers', []),
-        'game': True,
+        'winners': winners,
+        'game_play': True,
     }
 
     return render(request, 'game/game_board.html', context)
+
+def stop_game(request):
+    """ Cancel the game and remove all session variables """
+    playlist_id = request.session.get('playlist_id')
+    playlist = Playlist.objects.get(pk=playlist_id, game_master=request.user)
+    game_id = request.session.get('game_id')
+    game = Game.objects.get(pk=game_id, game_master=request.user, playlist=playlist)
+    game.called_numbers = request.session.get('called_numbers', [])
+    game.save()
+
+    game_keys = ['called_numbers', 'previous_numbers', 'current_number', 'current_song', 'game_board', 'prizes', 'prizes_claimed', 'winner', 'winner_name', 'winner_prize', 'winning_numbers', 'game_id']
+    for key in game_keys:
+        request.session.pop(key, None)
+    return redirect('home')
 
 
 def end_game(request):
     """ End the music game """
     game_id = request.session.get('game_id')
     game = Game.objects.get(pk=game_id)
+    winners = Winner.objects.filter(game=game)
     game.called_numbers = request.session.get('called_numbers', [])
     game.save()
 
@@ -173,4 +204,6 @@ def end_game(request):
         request.session.pop(key, None)
     return render(request, 'game/game_board.html', {
         'game_over': game_over,
+        'game': game,
+        'winners': winners,
     })

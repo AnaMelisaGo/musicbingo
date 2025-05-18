@@ -20,7 +20,7 @@
                     Are you sure you want to leave the game?
                 </div>
                 <div class="modal-footer">
-                    <a href="{% url 'home' %}" class="btn btn-danger">Exit Game</a>
+                    <a href="{% url 'stop_game' %}" class="btn btn-danger">Exit Game</a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -135,7 +135,14 @@
                     <button type="button" class="btn rounded-4 btn disabled">
                         {{ prize }}
                     </button>
-                    <!-- <a href="#" class="rounded-4 h-100 w-100 btn disabled">{{ prize }}</a> -->
+                    {% for winner in winners %}
+                        {% if winner.prize == prize %}
+                        <p class="fs-6 py-2">
+                            Winner:
+                            <small class="text-info">{{ winner.name }}</small>
+                        </p>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 {% else %}
                 <button type="button" class="btn rounded-4 prize-btn" data-bs-toggle="modal" data-bs-target="#prizesModal" data-prize="{{ prize }}">
@@ -291,7 +298,7 @@
                     <p>Are you sure you want to end this game?</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{% url 'home' %}" class="btn btn-primary">OK</a>
+                    <a href="{% url 'stop_game' %}" class="btn btn-primary">OK</a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -303,7 +310,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center">
-                    <h3>GAME OVER! Congratulations to all the winners! 🎊</h3>
+                    <h3>GAME OVER!</h3>
+                    <h4> Congratulations to all the winners! 🎊</h4>
+                    <p>Game: {{ game.played_on|date:"D, d M Y" }}</p>
+                    <ul>
+                        {% for winner in winners %}
+                            <li class="list-unstyled"><strong>{{ winner.prize }}</strong> - {{ winner.name }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <a href="{% url 'home' %}" class="btn btn-primary">OK</a>
@@ -330,6 +344,12 @@
     <pre class="text-info">{{ winning_numbers }}</pre>
     <pre class="text-info">{{ winner }}</pre>
     <pre class="text-info">{{ prize_claimed }}</pre>
+    <h1>Winners</h1>
+    {% for winner in winners %}
+    <ul>
+        <li class="list-unstyled">{{ winner.prize }}-{{ winner.name }}</li>
+    </ul>
+    {% endfor %}
     {{ playlist.id }}
     {% for song in songs %}
     <p>{{ song.number }} - {{ song.title }} - {{ song.playlist }} - {{ song.id }} - {{ song.video_file }}</p>
