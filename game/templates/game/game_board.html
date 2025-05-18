@@ -5,13 +5,12 @@
 
 {% block content %}
 <div class="container-fluid">
-    <!-- back -->
-    <!-- Button trigger modal -->
+    {% comment %} BACK BUTTON {% endcomment %}
     <button type="button" class="btn btn-primary d-none" id="backGameModal" data-bs-toggle="modal" data-bs-target="#backGame">
-        Launch static backdrop modal
+        Exit game
     </button>
 
-    <!-- Modal -->
+    {% comment %} BACK BUTTON MODAL {% endcomment %}
     <div class="modal fade text-dark" id="backGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="backGameLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -26,7 +25,9 @@
             </div>
         </div>
     </div>
-    <!-- WHEN GAME STARTS -->
+
+    {% comment %}------------- GAME BOARD LOAD -------------- {% endcomment %}
+    {% comment %}------------- GAME BOARD LOAD -------------- {% endcomment %}
     {% if game_board %}
     <div class="row">
         <div class="col-9 top-space">
@@ -39,7 +40,6 @@
                     <button type="button" class="btn rounded-4 prize-btn">
                         {{ prize }}
                     </button>
-                    <!-- <a href="#" class="rounded-4 h-100 w-100 btn disabled">{{ prize }}</a> -->
                 </div>
                 {% endfor %}
             </div>
@@ -73,10 +73,17 @@
                     </div>
                     <div class="row">
                         <div class="col-6 text-center">
-                            <a href="#" class="btn btn-lg rounded-pill btn-secondary">Auto</a>
+                            {% comment %}--------- AUTO PLAY BUTTON ------- {% endcomment %}
+                            <div class="auto-toggle-button auto-gd">
+                                <div class="auto-btn auto-btn-pill" id="button-3">
+                                    <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
+                                    <div class="auto-knob"></div>
+                                    <div class="auto-btn-bg"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 d-grid">
-                            <a href="#" class="btn btn-lg rounded-pill btn-danger">Stop</a>
+                        <div class="col-4 d-grid">
+                            <a href="#" class="btn btn-lg btn-danger">Stop</a>
                         </div>
                     </div>
                 </div>
@@ -102,6 +109,7 @@
                 </div>
             </div>
         </div>
+        {% comment %} ---------   ALL NUMBERS TABLE -----------------  {% endcomment %}
         <div class="col-3 mt-2">
             <table class="table m-0">
                 <tbody>
@@ -121,7 +129,7 @@
         </div>
     </div>
     {% else %}
-    <!-- WHEN START/NEXT BUTTON CLICKED -->
+    {% comment %} ----- WHEN START/NEXT BUTTON CLICKED ------ {% endcomment %}
     <div class="row">
         <div class="col-9 top-space">
             <div class="row container-fluid justify-content-around">
@@ -149,8 +157,8 @@
                     {{ prize }}
                 </button>
                 {% endif %}
-    <!--  check prize MODAL -->
 
+                {% comment %}------ CHECK WINNER MODAL ----- {% endcomment %}
                 <div class="modal fade text-dark" id="prizesModal" tabindex="-1" aria-labelledby="prizesModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -188,11 +196,11 @@
                 </div>
                 {% endfor %}                
             </div>
-            <!--  SONGS -->
+            {% comment %} <!-----  SONGS ----------> {% endcomment %}
             <div class="row">
                 <div class="col-9 d-flex justify-content-center align-items-center">
                     {% if current_song.video_file %}
-                        <video class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
+                        <video id="videoPlayer" class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
                             <source src="{{ current_song.video_file.url }}" type="video/mp4">
                         </video>
                     {% else %}
@@ -217,21 +225,29 @@
                         <div class="col d-grid m-4" style="height: 70px">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-lg rounded-pill btn-success fs-2 px-5 w-100">NEXT</button>
+                                <button id="nextButton" class="btn btn-lg rounded-pill btn-success fs-2 px-5 w-100">NEXT</button>
                             </form>
                         </div>
                     </div>
                     <div class="row">
+                        {% comment %} AUTOPLAY BUTTON {% endcomment %}
                         <div class="col-6 text-center">
-                            <a href="#" class="btn btn-lg rounded-pill btn-secondary">Auto</a>
+                            <div class="auto-toggle-button auto-gd">
+                                <div class="auto-btn auto-btn-pill" id="button-3">
+                                    <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
+                                    <div class="auto-knob"></div>
+                                    <div class="auto-btn-bg"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 d-grid">
-                            <button type="button" class="btn btn-lg rounded-pill btn-danger" data-bs-toggle="modal" data-bs-target="#stopGameModal">
+                        <div class="col-4 d-grid">
+                            <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#stopGameModal">
                                 Stop
                             </button>
                         </div>
                     </div>
                 </div>
+                {% comment %} PREVIOUS NUMBERS {% endcomment %}
                 <div class="row mb-1 w-75 justify-content-center mx-5">
                     <div class="col-3">
                         <h5>Previous numbers:</h5>
@@ -244,6 +260,7 @@
                 </div>
             </div>
         </div>
+        {% comment %} ------ ALL NUMBERS TABLE-------- {% endcomment %}
         <div class="col-3">
             <table class="table m-0">
                 <tbody>
@@ -266,8 +283,8 @@
             </table>
         </div>
     </div>
-    <!-- show winner MODAL -->
 
+    {% comment %} <!-- show winner MODAL --> {% endcomment %}
     <div class="modal fade text-dark" id="winnerModal" tabindex="-1" aria-labelledby="winnerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -286,7 +303,7 @@
         </div>
     </div>
     
-    <!-- Modal end game-->
+    {% comment %} <!-- Modal end game--> {% endcomment %}
     <div class="modal fade text-dark" id="stopGameModal" tabindex="-1" aria-labelledby="stopGameModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -304,7 +321,7 @@
             </div>
         </div>
     </div>
-    <!-- game over -->
+    {% comment %} <!-- game over --> {% endcomment %}
     <div class="modal fade text-dark" id="staticGameOver" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticGameOverLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -328,63 +345,6 @@
     </div>
     
     {% endif %}
-
-    
-    <!--  -->
-    <!-- TO DELETE  -->
-
-    <h2>game board</h2>
-
-    <!-- {% if playlist_form.errors %}
-    <pre>{{ playlist_form.errors }}</pre>
-    {% endif %} -->
-
-    <pre class="text-info">{{ winner_name }}</pre>
-    <pre class="text-info">{{ winner_prize }}</pre>
-    <pre class="text-info">{{ winning_numbers }}</pre>
-    <pre class="text-info">{{ winner }}</pre>
-    <pre class="text-info">{{ prize_claimed }}</pre>
-    <h1>Winners</h1>
-    {% for winner in winners %}
-    <ul>
-        <li class="list-unstyled">{{ winner.prize }}-{{ winner.name }}</li>
-    </ul>
-    {% endfor %}
-    {{ playlist.id }}
-    {% for song in songs %}
-    <p>{{ song.number }} - {{ song.title }} - {{ song.playlist }} - {{ song.id }} - {{ song.video_file }}</p>
-    {% endfor %}
-    <pre class="text-danger">{{ songs }}</pre>
-    <pre class="text-danger">{{ songs|length }}</pre>
-    <h3><strong>GAME START</strong></h3>
-    {% for prize in prizes %}
-    <button class="btn btn-small btn-danger">{{ prize }}</button>
-    {% endfor %}
-    <p>CONTEXT FROM GAME FUNC</p>
-    <pre class="text-danger">{{ current_number }}</pre>
-    <pre class="text-danger">{{ called_numbers }}</pre>
-    <pre class="text-danger">{{ previous_numbers }}</pre>
-    <pre class="text-danger">{{ current_song.number }}</pre>
-    <pre class="text-danger">{{ current_song.title }}</pre>
-    <pre class="text-danger">{{ current_song.playlist }}</pre>
-    
-    
-
-    {% for s in songs %}
-        {% if s.number in called_numbers %}
-        <button class="btn bg-bingo-success btn rounded-circle w-25 h-25">{{ s.number }}</button>
-        <p class="bg-bingo-success rounded-circle w-25 h-25 text-center text-dark">{{ s.number }}</p>
-        {% endif %}
-    {% endfor %}
-
-    {% for s in songs %}
-        {% if s.number == current_number %}
-        <p class="bg-bingo-violet rounded-circle w-25 h-25 text-center text-dark">{{ s }}</p>
-        <video class="object-fit-cover border rounded my-3 ms-2 bingo-video" controls>
-            <source src="{{ s.video_file }}" type="video/mp4">
-        </video>
-        {% endif %}
-    {% endfor %}
 </div>
 {% endblock %}
 

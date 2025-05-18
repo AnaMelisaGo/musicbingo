@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// for video file name
+// To display video file name when selected
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', function () {
@@ -111,4 +111,47 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         });
     });
-})
+});
+
+// auto-play button
+document.addEventListener('DOMContentLoaded', function() {
+    const autoPlayCheckbox = document.getElementById('autoCheckbox');
+    const video = document.getElementById('videoPlayer');
+    const nxtBtn = document.getElementById('nextButton');
+    let intervalId = null;
+
+    // Restorre the auto-play state from localStorage
+    if (localStorage.getItem('autoPlay') === 'true') {
+        autoPlayCheckbox.checked = true;
+    }
+
+    // Auto-play function
+    function enableAutoPlay() {
+        if (video) {
+            video.onended = () => nxtBtn.click();
+        } else {
+            intervalId = setInterval(() => {
+                console.log('Next number is ...');
+                nxtBtn.click();
+            }, 10000);
+        }
+    }
+
+    //if the checkbox is checked, enable auto-play
+    if (autoPlayCheckbox.checked) enableAutoPlay();
+
+    // Save the auto-play state to localStorage for any changes
+    autoPlayCheckbox.addEventListener('change', function(){
+        if (this.checked) {
+            console.log('Auto-play on!');
+            localStorage.setItem('autoPlay', this.checked);
+            enableAutoPlay();
+        } else {
+            console.log('Auto-play off!')
+            if (video) video.onended = null;
+            clearInterval(intervalId);
+            localStorage.setItem('autoPlay', false);
+        }
+    });
+
+});

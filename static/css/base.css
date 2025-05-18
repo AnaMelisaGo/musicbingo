@@ -231,4 +231,95 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     z-index: 9999999;
 }
 
-/* ---------------------- GAME ---------------------- */
+/* ---------------------- toggle ---------------------- */
+.auto-gd {
+    display: grid;
+}
+
+.auto-toggle-button {
+    position: relative;
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.auto-knob,
+.auto-btn-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.auto-btn {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.auto-btn.auto-btn-pill,
+.auto-btn.auto-btn-pill > .auto-btn-bg {
+    border-radius: 100px;
+}
+
+.auto-checkbox {
+	position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.auto-knob {
+    z-index: 2;
+}
+
+.auto-btn-bg {
+    width: 100%;
+    background-color: #ebf7fc;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+#button-3 .auto-knob:before {
+    content: "OFF";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    background-color: #9b9b9b;
+    border-radius: 50%;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#button-3 .auto-checkbox:active + .auto-knob:before {
+    width: 46px;
+    border-radius: 100px;
+}
+
+#button-3 .auto-checkbox:checked:active + .auto-knob:before {
+    margin-left: -26px;
+}
+
+#button-3 .auto-checkbox:checked + .auto-knob:before {
+    content: "ON";
+    left: 42px;
+    background-color: #03a9f4;
+}
+
+#button-3 .auto-checkbox:checked ~ .auto-btn-bg {
+    background-color: #fcebeb;
+}
