@@ -115,6 +115,8 @@ WSGI_APPLICATION = 'musicbingo.wsgi.application'
 
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://musicbingo-production.up.railway.app',
+    'http://musicbingo-production.up.railway.app',
     'https://8000-anamelisago-musicbingo-23xx919t99b.ws-eu118.gitpod.io',
     'http://8000-anamelisago-musicbingo-23xx919t99b.ws-eu118.gitpod.io',  # Include both HTTP and HTTPS if needed
 ]
@@ -125,14 +127,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 if ENVIRONMENT == 'production':
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': os.getenv('DB_PORT'),
-        }
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
 else:
     DATABASES = {
