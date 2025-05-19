@@ -1,0 +1,325 @@
+/* ---------------------- ROOT ---------------------- */
+:root {
+    --bingo-success: #8ef6e4;
+    --bingo-primary: #9896f1;
+    --bingo-violet: #d59bf6;
+    --bingo-danger: #edb1f1;
+    --bingo-dark-success: #6acaba;
+    --bingo-dark-violet: #702283;
+    --bingo-blue-gradient: linear-gradient(138deg, rgb(32, 201, 255) 36.7%, rgb(0, 8, 187) 84.4%, rgb(255, 255, 255) 119.7%);
+}
+
+/* ---------------------- GLOBAL ---------------------- */
+* {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
+    color:aliceblue;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ---------------------- BACKGROUND COLOR ---------------------- */
+.bg-bingo-primary {
+    background-color: var(--bingo-primary);
+}
+
+.bg-bingo-success {
+    background-color: var(--bingo-success);
+}
+
+.bg-bingo-violet {
+    background-color: var(--bingo-violet);
+}
+
+.bg-bingo-dark-violet {
+    background-color: var(--bingo-dark-violet);
+}
+
+.bg-bingo-gradient {
+    background-color: var(--bingo-blue-gradient);
+}
+/* ---------------------- BUTTONS HOVER ---------------------- */
+.btn.bg-bingo-dark-violet:hover {
+    background-color: #b736d7;
+}
+/* ---------------------- HOME AND LOGO ---------------------- */
+
+.logo-music {
+    font-family: "Playwrite MX Guides", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.logo-bingo {
+    font-family: "Frijole", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ---------------------- NAVBAR ---------------------- */
+.user-icon {
+    height:100px;
+    width: 100px;
+    font-size: 50px;
+}
+
+.custom-list .list-group-item {
+    background-color: #f9d7da;
+    border: none;
+}
+
+button.badge.bg-bingo-primary.rounded-pill:hover {
+    background-color: #76b39d;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute !important;
+    inset: auto auto auto 0; /* reset positioning */
+    top: 100%;
+    z-index: 1050; /* above other elements */
+    display: none;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: 50%;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+.play-active {
+    background-color: var(--bingo-success);
+}
+
+.play-active:hover {
+    background-color: var(--bingo-dark-success);
+}
+
+.login-btn {
+    background-color: var(--bingo-dark-violet);
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.login-btn:hover {
+    background-color: var(--bingo-violet);
+    color: var(--bingo-dark-violet);
+}
+
+/* ---------------------- PLAYLIST TEMPLATES ---------------------- */
+.top-space {
+    margin-top: 6rem;
+}
+
+.main-container {
+    width: 100%;
+    min-height: 40vh;
+}
+
+.form-container {
+    height: calc(90vh - 60px);
+    overflow: hidden;
+}
+
+.scrollable {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table {
+    --bs-table-bg: none;
+    --bs-table-color: transparent;
+    --bs-table-border-color: none;
+}
+
+.table-upload {
+    background: var(--bingo-danger);
+}
+.add-playlist {
+    color: var(--bingo-dark-violet);
+    font-size: 30px;
+}
+
+.custom-list .list-group-item:hover {
+    background-color: var(--bingo-violet);
+}
+
+.fa-circle-plus:hover {
+    color: #76b39d;
+}
+
+/* ---------------------- GAME TEMPLATES ---------------------- */
+.number-size {
+    font-size: 15px;
+}
+
+.song-num {
+    height: 40px;
+    width: 40px;
+}
+
+.prize-btn {
+    height:100px;
+    width:150px;
+    font-size: 25px;
+    background: linear-gradient(to top, #cfd7e0 0%, #df8f9d 0%, #aef0a4 100%);
+}
+
+.prize-btn:hover {
+    background: var(--bingo-dark-success);
+}
+
+.bingo-video{
+    height: 25rem;
+}
+
+.current-number {
+    border: var(--bingo-primary);
+    border-radius: 50%;
+    background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121));
+    border-color: white;
+    border-width: thick;
+    color: white;
+    font-size: 100px;
+    height: 10rem;
+    width: 10rem;
+    text-align: center;
+}
+
+.called-num {
+    background: linear-gradient(99deg, rgb(210, 137, 2) 14.7%, rgb(213, 84, 82) 73%);
+}
+
+.previous-num {
+    background: radial-gradient(circle at -3.1% -4.3%, rgb(57, 255, 186) 0%, rgb(21, 38, 82) 90%);
+    height: 50px;
+    width: 50px;
+}
+
+.winning-btn {
+    height: 45px;
+    width: 45px;
+    margin: 2px;
+}
+
+/* ---------------------- TOAST ---------------------- */
+.message-container {
+    margin-top: 7rem;
+    position: fixed;
+    z-index: 9999999;
+}
+
+/* ---------------------- toggle ---------------------- */
+.auto-gd {
+    display: grid;
+}
+
+.auto-toggle-button {
+    position: relative;
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.auto-knob,
+.auto-btn-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.auto-btn {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.auto-btn.auto-btn-pill,
+.auto-btn.auto-btn-pill > .auto-btn-bg {
+    border-radius: 100px;
+}
+
+.auto-checkbox {
+	position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.auto-knob {
+    z-index: 2;
+}
+
+.auto-btn-bg {
+    width: 100%;
+    background-color: #ebf7fc;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+#button-3 .auto-knob:before {
+    content: "OFF";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    background-color: #9b9b9b;
+    border-radius: 50%;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#button-3 .auto-checkbox:active + .auto-knob:before {
+    width: 46px;
+    border-radius: 100px;
+}
+
+#button-3 .auto-checkbox:checked:active + .auto-knob:before {
+    margin-left: -26px;
+}
+
+#button-3 .auto-checkbox:checked + .auto-knob:before {
+    content: "ON";
+    left: 42px;
+    background-color: #03a9f4;
+}
+
+#button-3 .auto-checkbox:checked ~ .auto-btn-bg {
+    background-color: #fcebeb;
+}
