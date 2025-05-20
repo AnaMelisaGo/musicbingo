@@ -45,35 +45,61 @@
             </div>
             <div class="row">
                 <div class="col-9">
-                    <video class="object-fit-cover border rounded my-3 bingo-video" controls>
-                        <source src="#" type="video/mp4">
-                    </video>
+                    <div class="row">
+                        <div class="col-12  d-flex justify-content-center align-items-center">
+                            {% comment %} <!-----  VIDEO ----------> {% endcomment %}
+                            <video class="object-fit-cover border rounded my-3 bingo-video" controls>
+                                <source src="#" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    {% comment %} PREVIOUS NUMBERS {% endcomment %}
+                    <div class="row mb-1 w-75 justify-content-center mx-5">
+                        <div class="col-5 text-end">
+                            <h5>Previous numbers:</h5>
+                        </div>
+                        <div class="col-1 mx-2">
+                            <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
+                        </div>
+                        <div class="col-1 mx-2">
+                            <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
+                        </div>
+                        <div class="col-1 mx-2">
+                            <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
+                        </div>
+                        <div class="col-1 mx-2">
+                            <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
+                        </div>
+                        <div class="col-1 mx-2">
+                            <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="col-3">
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-2 current-number ">-</div>
+                    {% comment %} CURRENT NUMBER{% endcomment %}
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-2 current-number">-</div>
                     </div>
                     <div class="row">
-                        <div class="col-12 p-4 text-center text-secondary" style="height: 50px;">
-                            No title yet.
+                        {% comment %} <!-----  TITLE ----------> {% endcomment %}
+                        <div class="col-12 pt-4 text-center" style="height: 100px;">
+                            <h4>No title</h4>
+                            <p class="text-secondary fs-6">No artist</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center text-secondary">
-                            By: 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-grid m-4" style="height: 70px">
+                    {% comment %} CONTROLS {% endcomment %}
+                    <div class="row mt-3">
+                        <div class="col-12">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-lg rounded-pill btn-success fs-2 px-5 w-100">START</button>
+                                <button id="nextButton" class="game-btn nxt-btn">START</button>
                             </form>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 text-center">
-                            {% comment %}--------- AUTO PLAY BUTTON ------- {% endcomment %}
+                    {% comment %} AUTOPLAY BUTTON {% endcomment %}
+                    <div class="row mt-3">
+                        <div class="col-5">
                             <div class="auto-toggle-button auto-gd">
                                 <div class="auto-btn auto-btn-pill" id="button-3">
                                     <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
@@ -82,29 +108,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 d-grid">
-                            <a href="#" class="btn btn-lg btn-danger">Stop</a>
+                        <div class="col-7">
+                            <button type="button" class="game-btn stop-btn" data-bs-toggle="modal" data-bs-target="#stopGameModal">
+                                Stop
+                            </button>
                         </div>
-                    </div>
-                </div>
-                <div class="row mb-1 w-75 justify-content-center mx-5">
-                    <div class="col-3">
-                        <h5>Previous numbers:</h5>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                     </div>
                 </div>
             </div>
@@ -196,42 +204,67 @@
                 </div>
                 {% endfor %}                
             </div>
-            {% comment %} <!-----  SONGS ----------> {% endcomment %}
+            {% comment %} <!-----  DISPLAY ----------> {% endcomment %}
             <div class="row">
-                <div class="col-9 d-flex justify-content-center align-items-center">
-                    {% if current_song.video_file %}
-                        <video id="videoPlayer" class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
-                            <source src="{{ current_song.video_file.url }}" type="video/mp4">
-                        </video>
-                    {% else %}
-                        <img src="{% static 'images/no-image.png' %}" alt="No video available"class="object-fit-cover border rounded my-3 bingo-video">
-                    {% endif %}
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12  d-flex justify-content-center align-items-center">
+                            {% comment %} <!-----  VIDEO ----------> {% endcomment %}
+                            {% if current_song.video_file %}
+                                <video id="videoPlayer" class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
+                                    <source src="{{ current_song.video_file.url }}" type="video/mp4">
+                                </video>
+                            {% else %}
+                                <img src="{% static 'images/no-image.png' %}" alt="No video available"class="object-fit-cover my-3 bingo-video">
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% comment %} PREVIOUS NUMBERS {% endcomment %}
+                    <div class="row mb-1 w-75 justify-content-center mx-5">
+                        <div class="col-5 text-end">
+                            <h5>Previous numbers:</h5>
+                        </div>
+                        {% for p in previous_numbers %}
+                                <div class="col-1 mx-2">
+                                    <button class="btn btn-success rounded-circle fs-4 previous-num">{{ p }}</button>
+                                </div>
+                        {% endfor %}
+                    </div>
                 </div>
+                {% comment %} CURRENT NUMBERS AND CONTROLS {% endcomment %}
                 <div class="col-3">
                     <div class="row justify-content-center mt-4">
                         <div class="col-2 current-number">{{ current_song.number }}</div>
                     </div>
                     <div class="row">
-                        <div class="col-12 p-4 text-center" style="height: 50px;">
-                            {{ current_song.title }}
+                        <div class="col-12 pt-4 text-center" style="height: 100px;">
+                            {% comment %} <!-----  TITLE ----------> {% endcomment %}
+                            {% if current_song.title %}
+                                <h4>
+                                    {{ current_song.title }}
+                                </h4>
+                            {% else %}
+                                <h4>No title</h4>
+                            {% endif %}
+                            {% if current_song.artist %}
+                                <p class="text-secondary fs-6">By: {{ current_song.artist }}</p>
+                            {% else %}
+                                <p class="text-secondary fs-6">No artist</p>
+                            {% endif %}
+
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center text-secondary">
-                            By: {{ current_song.artist }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-grid m-4" style="height: 70px">
+                    <div class="row mt-3">
+                        <div class="col-12">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
-                                <button id="nextButton" class="btn btn-lg rounded-pill btn-success fs-2 px-5 w-100">NEXT</button>
+                                <button id="nextButton" class="game-btn nxt-btn">NEXT</button>
                             </form>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3    ">
                         {% comment %} AUTOPLAY BUTTON {% endcomment %}
-                        <div class="col-6 text-center">
+                        <div class="col-5">
                             <div class="auto-toggle-button auto-gd">
                                 <div class="auto-btn auto-btn-pill" id="button-3">
                                     <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
@@ -240,23 +273,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 d-grid">
-                            <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#stopGameModal">
+                        <div class="col-7">
+                            <button type="button" class="game-btn stop-btn" data-bs-toggle="modal" data-bs-target="#stopGameModal">
                                 Stop
                             </button>
                         </div>
                     </div>
-                </div>
-                {% comment %} PREVIOUS NUMBERS {% endcomment %}
-                <div class="row mb-1 w-75 justify-content-center mx-5">
-                    <div class="col-3">
-                        <h5>Previous numbers:</h5>
-                    </div>
-                    {% for p in previous_numbers %}
-                            <div class="col-1">
-                                <button class="btn btn-success rounded-circle fs-4 previous-num">{{ p }}</button>
-                            </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>

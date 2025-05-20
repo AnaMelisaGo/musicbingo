@@ -239,7 +239,6 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 .auto-toggle-button {
     position: relative;
     padding-top: 20px;
-    padding-left: 30px;
 }
 
 .auto-knob,
@@ -322,4 +321,54 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 #button-3 .auto-checkbox:checked ~ .auto-btn-bg {
     background-color: #fcebeb;
+}
+
+.game-btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    position: relative;
+}
+
+.nxt-btn {
+    padding: 15px 70px;
+    margin: 10px 5px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    background-color: #20bf3a;
+    box-shadow: 0 9px #157825;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.nxt-btn:hover {
+    box-shadow: 0 9px #157825;
+    top: 2px;
+}
+
+.stop-btn {
+    padding: 5px 25px;
+    margin: 5px;
+    border-radius: 20px;
+    /* letter-spacing: 2px; */
+    background-color: #fd3232;
+    box-shadow: 0 9px #c42727;
+    font-size: 20px;
+    font-weight: 300px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.stop-btn:hover {
+    box-shadow: 0 9px #c42727;
+    top: 2px;
+}
+
+.nxt-btn:active,
+stop-btn:active {
+    box-shadow: none;
+    top: 6px;
 }
