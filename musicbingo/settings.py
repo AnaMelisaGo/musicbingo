@@ -200,7 +200,7 @@ if os.getenv('USE_S3') == 'True':
     AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = False  # Optional: make public URLs easier
 
-    MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.wasabisys.com/'
+    MEDIA_URL = f'https://s3.{AWS_S3_REGION_NAME}.wasabisys.com/{AWS_STORAGE_BUCKET_NAME}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
