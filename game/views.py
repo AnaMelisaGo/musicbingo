@@ -10,7 +10,7 @@ import json
 def start_gameboard(request, playlist_id, slug):
     """ Game board to play music bingo and create the game to store data"""
     playlist = Playlist.objects.get(pk=playlist_id, slug=slug, game_master=request.user)
-    songs = Song.objects.filter(playlist=playlist)
+    songs = Song.objects.filter(playlist=playlist).order_by('number')
     request.session['playlist_id'] = playlist_id
     request.session['called_numbers'] = []
     request.session['previous_numbers'] = []
@@ -71,7 +71,7 @@ def next_number(request):
 
     playlist_id = request.session.get('playlist_id')
     playlist = Playlist.objects.get(pk=playlist_id, game_master=request.user)
-    songs = Song.objects.filter(playlist=playlist)
+    songs = Song.objects.filter(playlist=playlist).order_by('number')
 
     all_numbers = list(songs.values_list('number', flat=True))
     called_numbers = request.session.get('called_numbers', [])
@@ -143,7 +143,7 @@ def add_winner(request):
 def music_bingo(request):
     playlist_id = request.session.get('playlist_id')
     playlist = Playlist.objects.get(pk=playlist_id, game_master=request.user)
-    songs = Song.objects.filter(playlist=playlist)
+    songs = Song.objects.filter(playlist=playlist).order_by('number')
     current_number = request.session.get('current_number')
     current_song = songs.filter(number=current_number).first()
     called_numbers = request.session.get('called_numbers',[])
