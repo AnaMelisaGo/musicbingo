@@ -53,6 +53,10 @@ a {
 .bg-bingo-gradient {
     background-color: var(--bingo-blue-gradient);
 }
+
+.bg-bingo-light {
+    background-color: #fae2e4;
+}
 /* ---------------------- BUTTONS HOVER ---------------------- */
 .btn.bg-bingo-dark-violet:hover {
     background-color: #b736d7;
