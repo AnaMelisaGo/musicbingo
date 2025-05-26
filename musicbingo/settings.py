@@ -178,8 +178,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 # The URL prefix for static files served from STATIC_ROOT. This is the URL that will be used to access the static files in production.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
 
 # Media files (user-uploaded files)
 MEDIA_URL = '/media/'
@@ -188,8 +188,7 @@ MEDIA_ROOT = BASE_DIR/ 'media'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 
 if os.getenv('USE_B2') == 'True':
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
-
+    # Backblaze B2 settings for AWS S3 compatible storage
     AWS_ACCESS_KEY_ID = os.getenv('B2_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.getenv('B2_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = 'musicbingo'
@@ -201,6 +200,16 @@ if os.getenv('USE_B2') == 'True':
     AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = False  # Optional: make public URLs easier
     AWS_S3_ADDRESSING_STYLE = "virtual"
+
+    # Static and Media files in the bucket
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'  # Custom location for media files
+
+    # Override the default static and media URLs
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
 # Default primary key field type
