@@ -187,22 +187,21 @@ MEDIA_ROOT = BASE_DIR/ 'media'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 
-if os.getenv('USE_S3') == 'True':
+if os.getenv('USE_B2') == 'True':
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3BotoStorage'
 
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_ACCESS_KEY_ID = os.getenv('B2_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('B2_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = 'musicbingo'
-    AWS_S3_REGION_NAME = 'eu-west-1'
-    AWS_S3_ENDPOINT_URL = f'https://s3.{AWS_S3_REGION_NAME}.wasabisys.com'
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.wasabisys.com'
+    AWS_S3_REGION_NAME = 'eu-central-003'
+    AWS_S3_ENDPOINT_URL = f'https://s3.eu-central-003.backblazeb2.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.eu-central-003.backblazeb2.com'
 
     AWS_S3_FILE_OVERWRITE = False
     AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = False  # Optional: make public URLs easier
+    AWS_S3_ADDRESSING_STYLE = "virtual"
 
-    AWS_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
