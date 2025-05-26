@@ -61,6 +61,10 @@ a {
 .btn.bg-bingo-dark-violet:hover {
     background-color: #b736d7;
 }
+/* ---------------------- TEXT ---------------------- */
+.text-yellow {
+    color: yellow;
+}
 /* ---------------------- HOME AND LOGO ---------------------- */
 
 .logo-music {
@@ -186,7 +190,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .prize-btn {
     height:100px;
-    width:150px;
+    width:120px;
     font-size: 25px;
     background: linear-gradient(to top, #cfd7e0 0%, #df8f9d 0%, #aef0a4 100%);
 }
@@ -197,6 +201,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .bingo-video{
     height: 25rem;
+    width: 40rem
 }
 
 .current-number {
@@ -336,7 +341,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .nxt-btn {
-    padding: 15px 70px;
+    padding: 15px 50px;
     margin: 10px 5px;
     border-radius: 20px;
     letter-spacing: 2px;
@@ -372,7 +377,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .nxt-btn:active,
-stop-btn:active {
+.stop-btn:active {
     box-shadow: none;
     top: 6px;
 }

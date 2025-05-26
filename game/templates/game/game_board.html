@@ -153,9 +153,9 @@
                     </button>
                     {% for winner in winners %}
                         {% if winner.prize == prize %}
-                        <p class="fs-6 py-2">
+                        <p class="fs-6 py-2 text-secondary">
                             Winner:
-                            <span class="text-info">{{ winner.name }}</span>
+                            <span class="text-yellow">{{ winner.name }}</span>
                         </p>
                         {% endif %}
                     {% endfor %}
@@ -292,9 +292,9 @@
                     {% endif %}
                         <td class="pb-1 p-0">
                             {% if song.number in called_numbers %}
-                            <button class="btn called-num rounded-circle text-white song-num"><strong>{{ song.number }}</strong></button>
+                            <button class="btn called-num rounded-circle text-white song-num my-1"><strong>{{ song.number }}</strong></button>
                             {% else %}
-                            <button class="btn btn-secondary rounded-circle text-dark song-num">{{ song.number }}</button>
+                            <button class="btn btn-secondary rounded-circle text-dark song-num my-1">{{ song.number }}</button>
                             {% endif %}
                         </td>
                     {% if forloop.counter|divisibleby:5 or forloop.last %}
