@@ -178,7 +178,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 # The URL prefix for static files served from STATIC_ROOT. This is the URL that will be used to access the static files in production.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
 
 
 # Media files (user-uploaded files)
@@ -193,22 +193,18 @@ if os.getenv('USE_B2') == 'True':
     AWS_SECRET_ACCESS_KEY = os.getenv('B2_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = 'musicbingo'
     AWS_S3_REGION_NAME = 'eu-central-003'
-    AWS_S3_ENDPOINT_URL = f'https://s3.eu-central-003.backblazeb2.com'
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.eu-central-003.backblazeb2.com'
+    AWS_S3_ENDPOINT = f's3.{AWS_S3_REGION_NAME}.backblazeb2.com'
+    AWS_S3_ENDPOINT_URL = f'https://{AWS_S3_ENDPOINT}'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT}'
 
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-    AWS_QUERYSTRING_AUTH = False  # Optional: make public URLs easier
-    AWS_S3_ADDRESSING_STYLE = "virtual"
-
-    # Static and Media files in the bucket
-    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    STATICFILES_LOCATION = 'static'
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=94608000',  # 3 years
+    }
+    # Media files in the bucket
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     MEDIAFILES_LOCATION = 'media'  # Custom location for media files
 
-    # Override the default static and media URLs
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    # Override the default media URLs
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
