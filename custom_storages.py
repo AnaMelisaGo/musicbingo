@@ -3,6 +3,4 @@ from storages.backends.s3boto3 import S3Boto3Storage
 
 
 class MediaStorage(S3Boto3Storage):
-    location = settings.MEDIAFILES_LOCATION
-    default_acl = None
-    file_overwrite = False
+    location = getattr(settings, 'MEDIAFILES_LOCATION', 'media')
