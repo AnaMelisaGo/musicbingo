@@ -196,6 +196,7 @@ if os.getenv('USE_AWS') == 'True':
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
     AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',  # Set a far future expiration date
         'CacheControl': 'max-age=94608000',  # 3 years
     }
     # Media files in the bucket
