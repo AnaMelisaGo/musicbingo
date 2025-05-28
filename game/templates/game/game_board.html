@@ -30,9 +30,9 @@
     {% comment %}------------- GAME BOARD LOAD -------------- {% endcomment %}
     {% if game_board %}
     <div class="row">
-        <div class="col-9 top-space">
-            <div class="row container-fluid justify-content-around">
-                <div class="col-4">
+        <div class="col-md-9 col-sm-12 top-space">
+            <div class="row container-fluid justify-content-around mt-5">
+                <div class="col-md-4 col-sm-12">
                     Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
                 {% for prize in prizes %}
@@ -44,18 +44,18 @@
                 {% endfor %}
             </div>
             <div class="row">
-                <div class="col-9">
+                <div class="col-md-9 col-sm-12 mt-3">
                     <div class="row">
-                        <div class="col-12  d-flex justify-content-center align-items-center">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
                             {% comment %} <!-----  VIDEO ----------> {% endcomment %}
-                            <video class="object-fit-cover border rounded my-3 bingo-video" controls>
+                            <video class="object-fit-scale border rounded my-3 bingo-video" controls>
                                 <source src="#" type="video/mp4">
                             </video>
                         </div>
                     </div>
                     {% comment %} PREVIOUS NUMBERS {% endcomment %}
-                    <div class="row mb-1 w-75 justify-content-center mx-5">
-                        <div class="col-5 text-end">
+                    <div class="row mb-1 justify-content-center">
+                        <div class="col-md-5 col-3 text-end">
                             <h5>Previous numbers:</h5>
                         </div>
                         <div class="col-1 mx-2">
@@ -74,9 +74,8 @@
                             <button class="btn btn-success rounded-circle fs-4 previous-num">-</button>
                         </div>
                     </div>
-                    
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12 mt-5">
                     {% comment %} CURRENT NUMBER{% endcomment %}
                     <div class="row justify-content-center mt-4">
                         <div class="col-2 current-number">-</div>
@@ -89,17 +88,14 @@
                         </div>
                     </div>
                     {% comment %} CONTROLS {% endcomment %}
-                    <div class="row mt-3">
-                        <div class="col-12">
+                    <div class="row m-3">
+                        <div class="col-12 d-flex justify-content-center">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
                                 <button id="nextButton" class="game-btn nxt-btn">START</button>
                             </form>
                         </div>
-                    </div>
-                    {% comment %} AUTOPLAY BUTTON {% endcomment %}
-                    <div class="row mt-3">
-                        <div class="col-5">
+                        <div class="col-md-5 col-6">
                             <div class="auto-toggle-button auto-gd">
                                 <div class="auto-btn auto-btn-pill" id="button-3">
                                     <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
@@ -108,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-7">
+                        <div class="col-md-7 col-6 d-flex align-items-center justify-content-center">
                             <button type="button" class="game-btn stop-btn" data-bs-toggle="modal" data-bs-target="#stopGameModal">
                                 Stop
                             </button>
@@ -118,7 +114,7 @@
             </div>
         </div>
         {% comment %} ---------   ALL NUMBERS TABLE -----------------  {% endcomment %}
-        <div class="col-3">
+        <div class="col-md-3 col-sm-9 container-fluid justify-content-center mt-4">
             <table class="table mt-2">
                 <tbody>
                 {% for song in songs %}
@@ -139,16 +135,16 @@
     {% else %}
     {% comment %} ----- WHEN START/NEXT BUTTON CLICKED ------ {% endcomment %}
     <div class="row">
-        <div class="col-9 top-space">
-            <div class="row container-fluid justify-content-around">
-                <div class="col-4">
+        <div class="col-md-9 col-sm-12 top-space">
+            <div class="row container-fluid justify-content-around mt-5">
+                <div class="col-md-4 col-sm-12">
                     Playlist: <h3 class="mt-3">{{ playlist.name }}</h3>
                 </div>
                 {% comment %} ALL PRIZES AVAILABLE {% endcomment %}
                 {% for prize in prizes %}
                 {% if prize in prizes_claimed %}
                 <div class="col-2">
-                    <button type="button" class="btn rounded-4 btn disabled">
+                    <button type="button" class="btn rounded-4 disabled fs-6 d-none d-sm-block">
                         {{ prize }}
                     </button>
                     {% for winner in winners %}
@@ -206,22 +202,22 @@
             </div>
             {% comment %} <!-----  DISPLAY ----------> {% endcomment %}
             <div class="row">
-                <div class="col-9">
+                <div class="col-md-9 col-sm-12 mt-3">
                     <div class="row">
-                        <div class="col-12  d-flex justify-content-center align-items-center">
+                        <div class="col-12 d-flex justify-content-center align-items-center">
                             {% comment %} <!-----  VIDEO ----------> {% endcomment %}
                             {% if current_song.video_file %}
-                                <video id="videoPlayer" class="object-fit-cover border rounded my-3 bingo-video" controls autoplay>
+                                <video id="videoPlayer" class="object-fit-scale my-3 bingo-video" controls autoplay>
                                     <source src="{{ current_song.video_file.url }}" type="video/mp4">
                                 </video>
                             {% else %}
-                                <img src="{% static 'images/no-image.png' %}" alt="No video available"class="object-fit-cover my-3 bingo-video">
+                                <img src="{% static 'images/no-image.png' %}" alt="No video available"class="object-fit-scale my-3 bingo-video">
                             {% endif %}
                         </div>
                     </div>
                     {% comment %} PREVIOUS NUMBERS {% endcomment %}
-                    <div class="row mb-1 w-75 justify-content-center mx-5">
-                        <div class="col-5 text-end">
+                    <div class="row mb-1 justify-content-center">
+                        <div class="col-md-5 col-3 text-end">
                             <h5>Previous numbers:</h5>
                         </div>
                         {% for p in previous_numbers %}
@@ -232,9 +228,10 @@
                     </div>
                 </div>
                 {% comment %} CURRENT NUMBERS AND CONTROLS {% endcomment %}
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12 mt-5">
                     <div class="row justify-content-center mt-4">
-                        <div class="col-2 current-number">{{ current_song.number }}</div>
+                        <div class="col-2 current-number">{{ current_song.number }}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12 pt-4 text-center" style="height: 100px;">
@@ -254,17 +251,18 @@
 
                         </div>
                     </div>
+                    {% comment %} CONTROLS {% endcomment %}
                     <div class="row mt-3">
-                        <div class="col-12">
+                        <div class="col-12 d-flex justify-content-center">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
                                 <button id="nextButton" class="game-btn nxt-btn">NEXT</button>
                             </form>
                         </div>
                     </div>
-                    <div class="row mt-3    ">
+                    <div class="row mt-3">
                         {% comment %} AUTOPLAY BUTTON {% endcomment %}
-                        <div class="col-5">
+                        <div class="col-md-5 col-6">
                             <div class="auto-toggle-button auto-gd">
                                 <div class="auto-btn auto-btn-pill" id="button-3">
                                     <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
@@ -273,7 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-7">
+                        <div class="col-md-7 col-6 d-flex align-items-center justify-content-center">
                             <button type="button" class="game-btn stop-btn" data-bs-toggle="modal" data-bs-target="#stopGameModal">
                                 Stop
                             </button>
@@ -283,7 +281,7 @@
             </div>
         </div>
         {% comment %} ------ ALL NUMBERS TABLE-------- {% endcomment %}
-        <div class="col-3">
+        <div class="col-md-3 col-sm-9 container-fluid justify-content-center mt-4">
             <table class="table mt-2">
                 <tbody>
                 {% for song in songs %}
