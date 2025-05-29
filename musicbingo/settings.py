@@ -172,13 +172,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = '/static/'
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-# The URL prefix for static files served from STATIC_ROOT. This is the URL that will be used to access the static files in production.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] # for development
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # for production
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # WhiteNoise storage class for serving static files in production
 
 
 # Media files (user-uploaded files)
@@ -187,8 +184,9 @@ MEDIA_ROOT = BASE_DIR/ 'media'
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
 
+
+# AWS S3 settings
 if os.getenv('USE_AWS') == 'True':
-    # AWS S3 settings for media files
     AWS_STORAGE_BUCKET_NAME = 'musicbingoapp'
     AWS_S3_REGION_NAME = 'eu-west-1'
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -199,12 +197,24 @@ if os.getenv('USE_AWS') == 'True':
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',  # Set a far future expiration date
         'CacheControl': 'max-age=94608000',  # 3 years
     }
-    # Media files in the bucket
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-    MEDIAFILES_LOCATION = 'media'  # Custom location for media files
 
-    # Override the default media URLs
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    AWS_DEFAULLT_ACL = 'public-read'  # Set default ACL for uploaded files
+    AWS_QUERYSTRING_AUTH = False  # Disable query string authentication for public access
+    AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
+    
+    STORAGES = {
+        # Default storage for media files
+        'default': {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+        },
+        # Static files storage
+        'staticfiles': {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+        }
+    }
+
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
 
 # Default primary key field type

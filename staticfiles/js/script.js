@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nxtBtn = document.getElementById('nextButton');
     let intervalId = null;
 
-    // Restorre the auto-play state from localStorage
+    // Restore the auto-play state from localStorage
     if (localStorage.getItem('autoPlay') === 'true') {
         autoPlayCheckbox.checked = true;
     }

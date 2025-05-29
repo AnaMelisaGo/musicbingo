@@ -77,9 +77,14 @@ def edit_playlist(request, playlist_id, slug):
             messages.info(request, f'{playlist.name} is successfully updated!')
             return JsonResponse({'redirect_url': reverse('home')})
         else:
-            messages.error(request, f'Error found')
-            print("Formset errors:", formset.errors)
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'errors': formset.errors}, status=400)
+            messages.error(request, 'There were errors. Please check.')
             return redirect(request.META.get('HTTP_REFERER', '/'))
+            # ---------- DELETE THIS BLOCK AFTER TESTING -----------
+            """ messages.error(request, f'Error found')
+            print("Formset errors:", formset.errors)
+            return redirect(request.META.get('HTTP_REFERER', '/')) """
     else:
         playlist_form = AddPlaylistForm(instance=playlist)
         formset = SongUploadFormset(queryset=Song.objects.filter(playlist=playlist))

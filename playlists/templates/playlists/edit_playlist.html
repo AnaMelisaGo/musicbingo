@@ -132,7 +132,7 @@ document.getElementById('upload-form').addEventListener('submit', function(e){
     const progressWrapper = document.getElementById('progress-wrapper');
     const status = document.getElementById('upload-status');
     const uploadBtn = document.getElementById('upload-btn');
-
+    
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '', true);
 
@@ -146,7 +146,7 @@ document.getElementById('upload-form').addEventListener('submit', function(e){
         if (e.lengthComputable) {
             const percent = Math.round((e.loaded /e.total) * 100);
             progressBar.style.width = percent + '%';
-            progress.textContent = percent + '%';
+            progressBar.textContent = percent + '%';
 
         }
     });

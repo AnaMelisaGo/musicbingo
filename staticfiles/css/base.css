@@ -200,21 +200,22 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .bingo-video{
-    height: 25rem;
-    width: 40rem
+    height: 450px;
+    width: 800px;
 }
 
 .current-number {
-    border: var(--bingo-primary);
     border-radius: 50%;
-    background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121));
-    border-color: white;
-    border-width: thick;
+    background: linear-gradient(to right, rgb(41, 144, 247), rgb(0, 31, 143));
+    border-color: #61abf4;
+    border-style: solid;
     color: white;
+    border-width: 1px;
     font-size: 100px;
-    height: 10rem;
-    width: 10rem;
+    height: 12rem;
+    width: 12rem;
     text-align: center;
+    padding: 10px;
 }
 
 .called-num {
@@ -247,7 +248,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 
 .auto-toggle-button {
     position: relative;
-    padding-top: 20px;
+    padding-top: 25px;
 }
 
 .auto-knob,
@@ -341,20 +342,20 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .nxt-btn {
-    padding: 15px 50px;
+    padding: 20px 50px;
     margin: 10px 5px;
-    border-radius: 20px;
-    letter-spacing: 2px;
+    border-radius: 30px;
+    letter-spacing: 10px;
     background-color: #20bf3a;
-    box-shadow: 0 9px #157825;
-    font-size: 28px;
+    box-shadow: 0 12px #157825;
+    font-size: 30px;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
 }
 
 .nxt-btn:hover {
-    box-shadow: 0 9px #157825;
+    box-shadow: 0 12px #157825;
     top: 2px;
 }
 
@@ -379,5 +380,21 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 .nxt-btn:active,
 .stop-btn:active {
     box-shadow: none;
-    top: 6px;
+    top: 8px;
+}
+
+/* ---------------------- RESPONSIVE ---------------------- */
+
+/* Small devices (landscape phones, 576px)  */
+@media (max-width: 576px) {
+    .prize-btn {
+        height: 50px;
+        width: 70px;
+        font-size: 14px;
+    }
+
+    .bingo-video {
+        height: 300px;
+        width: 350px;
+    }
 }
