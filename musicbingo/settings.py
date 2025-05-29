@@ -198,10 +198,10 @@ if os.getenv('USE_AWS') == 'True':
         'CacheControl': 'max-age=94608000',  # 3 years
     }
 
-    AWS_DEFAULLT_ACL = 'public-read'  # Set default ACL for uploaded files
+    AWS_DEFAULT_ACL = 'public-read'  # Set default ACL for uploaded files
     AWS_QUERYSTRING_AUTH = False  # Disable query string authentication for public access
     AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
-    
+
     STORAGES = {
         # Default storage for media files
         'default': {

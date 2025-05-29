@@ -59,23 +59,28 @@ def edit_playlist(request, playlist_id, slug):
         print("Files:", request.FILES)
         print("Formset cleaned data:")
         if playlist_form.is_valid() and formset.is_valid():
-            playlist_form.save()
-            formset_instances = formset.save(commit=False)
+            try:
+                playlist_form.save()
+                formset_instances = formset.save(commit=False)
 
-            for i, form in enumerate(formset.forms):
-                song = form.instance
-                clear_video = request.POST.get(f'clear_video_{i}') == 'true'
-                if clear_video and song.video_file:
-                    song.video_file.delete(save=False)
-                    song.video_file = None
-                if form.has_changed() or clear_video:
-                    form.save()
-                for song in formset_instances:
-                    song.playlist = playlist
-                    song.save()
-            print(form.cleaned_data)
-            messages.info(request, f'{playlist.name} is successfully updated!')
-            return JsonResponse({'redirect_url': reverse('home')})
+                for i, form in enumerate(formset.forms):
+                    song = form.instance
+                    clear_video = request.POST.get(f'clear_video_{i}') == 'true'
+                    if clear_video and song.video_file:
+                        song.video_file.delete(save=False)
+                        song.video_file = None
+                    if form.has_changed() or clear_video:
+                        form.save()
+                    for song in formset_instances:
+                        song.playlist = playlist
+                        song.save()
+                print(form.cleaned_data)
+                messages.info(request, f'{playlist.name} is successfully updated!')
+                return JsonResponse({'redirect_url': reverse('home')})
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                return JsonResponse({'error': str(e)}, status=500)
         else:
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({'errors': formset.errors}, status=400)
