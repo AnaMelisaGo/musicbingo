@@ -88,14 +88,14 @@
                         </div>
                     </div>
                     {% comment %} CONTROLS {% endcomment %}
-                    <div class="row m-3">
+                    <div class="row my-3">
                         <div class="col-12 d-flex justify-content-center">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
                                 <button id="nextButton" class="game-btn nxt-btn">START</button>
                             </form>
                         </div>
-                        <div class="col-md-5 col-6">
+                        <div class="col-md-6 col-6">
                             <div class="auto-toggle-button auto-gd">
                                 <div class="auto-btn auto-btn-pill" id="button-3">
                                     <input type="checkbox" class="auto-checkbox" id="autoCheckbox" />
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-7 col-6 d-flex align-items-center justify-content-center">
+                        <div class="col-md-6 col-6 d-flex align-items-center justify-content-center">
                             <button type="button" class="game-btn stop-btn" data-bs-toggle="modal" data-bs-target="#stopGameModal">
                                 Stop
                             </button>
@@ -252,15 +252,13 @@
                         </div>
                     </div>
                     {% comment %} CONTROLS {% endcomment %}
-                    <div class="row mt-3">
+                    <div class="row my-3">
                         <div class="col-12 d-flex justify-content-center">
                             <form action="{% url 'next_number' %}" method="post">
                                 {% csrf_token %}
                                 <button id="nextButton" class="game-btn nxt-btn">NEXT</button>
                             </form>
                         </div>
-                    </div>
-                    <div class="row mt-3">
                         {% comment %} AUTOPLAY BUTTON {% endcomment %}
                         <div class="col-md-5 col-6">
                             <div class="auto-toggle-button auto-gd">
