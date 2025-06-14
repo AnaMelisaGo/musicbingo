@@ -398,3 +398,10 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
         width: 350px;
     }
 }
+
+@media (max-height: 1050px) {
+    .mtb-1 {
+        margin-top: 0.8rem;
+        margin-bottom: 0px;
+    }
+}
