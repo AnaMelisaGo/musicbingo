@@ -210,7 +210,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
     border-color: #61abf4;
     border-style: solid;
     color: white;
-    border-width: 1px;
+    border-width: 20px;
     font-size: 100px;
     height: 12rem;
     width: 12rem;
