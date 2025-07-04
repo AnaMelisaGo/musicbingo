@@ -200,7 +200,7 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 }
 
 .bingo-video{
-    height: 450px;
+    height: 23rem;
     width: 40rem;
 }
 
@@ -402,6 +402,13 @@ button.badge.bg-bingo-primary.rounded-pill:hover {
 @media (max-height: 1050px) {
     .mtb-1 {
         margin-top: 0.8rem;
+        margin-bottom: 0px;
+    }
+}
+
+@media (max-height: 720px) {
+    .mtb-1 {
+        margin-top: 0.3rem;
         margin-bottom: 0px;
     }
 }
